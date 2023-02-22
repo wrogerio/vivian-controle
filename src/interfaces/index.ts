@@ -1,13 +1,13 @@
 export interface categoria {
-    Id: number;
-    Nome: string;
+    id: number;
+    nome: string;
 }
 
 export interface lancamento {
-    Id: number;
-    DtLancamento: Date;
-    DtLancamentoString: string;
-    Descricao: string;
-    Valor: number;
-    CategoriaId: number;
+    id: number;
+    dtLancamento: Date;
+    dtLancamentostring: string;
+    descricao: string;
+    valor: number;
+    categoriaId: number;
 }

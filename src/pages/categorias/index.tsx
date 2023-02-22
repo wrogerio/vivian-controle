@@ -14,7 +14,6 @@ const Index = () => {
     const LoadData = async () => {
         const res = await fetch(`/api/${urlRoot}`);
         const data = await res.json();
-        console.log(data);
 
         // error handle
         if (data.error) console.log(data.error);
@@ -34,10 +33,10 @@ const Index = () => {
                 <tbody>
                     {Array.isArray(categorias) &&
                         categorias.map((obj: categoria) => (
-                            <tr key={obj.Id}>
-                                <td>{obj.Nome}</td>
+                            <tr key={obj.id}>
+                                <td>{obj.nome}</td>
                                 <td className="text-center">
-                                    <a href={`/${urlRoot}/AddOrEdit/${obj.Id}`} className="me-2">
+                                    <a href={`/${urlRoot}/AddOrEdit/${obj.id}`} className="me-2">
                                         <i className="fas fa-edit"></i>
                                     </a>
                                     <span className="text-danger">
