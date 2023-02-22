@@ -14,6 +14,7 @@ const Index = () => {
     const LoadData = async () => {
         const res = await fetch(`/api/${urlRoot}`);
         const data = await res.json();
+        console.log(data);
 
         // error handle
         if (data.error) console.log(data.error);
