@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { GetAll, Add } from "../../../controllers/Categoria.Conrtoller";
+import { GetAll, Add } from "@/controllers/Lancamentos.Controler";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     switch (req.method) {
@@ -9,7 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                     res.status(200).json(dados);
                 })
                 .catch((err) => {
-                    res.status(500).json(err);
+                    res.status(500).send(err);
                 });
             break;
         case "POST":
@@ -17,7 +17,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             res.status(201).send(resultPost);
             break;
         default:
-            res.status(405).send("Método não permitido");
+            return res.status(404).send("Método não permitido");
             break;
     }
 };
