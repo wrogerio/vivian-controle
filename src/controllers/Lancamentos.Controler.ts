@@ -49,7 +49,7 @@ export const Add = (lancamento: lancamento) => {
 
 export const Update = (lancamento: lancamento) => {
     return new Promise((resolve, reject) => {
-        db.query("UPDATE lancamentos SET ? WHERE Id = ?", [lancamento, lancamento.Id], (err, result) => {
+        db.query("UPDATE lancamentos SET ? WHERE Id = ?", [lancamento, lancamento.id], (err, result) => {
             if (err) {
                 reject(false);
             } else {
