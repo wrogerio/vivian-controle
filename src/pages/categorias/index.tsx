@@ -33,10 +33,10 @@ const Index = () => {
                 <tbody>
                     {Array.isArray(categorias) &&
                         categorias.map((obj: categoria) => (
-                            <tr key={obj.id}>
-                                <td>{obj.nome}</td>
+                            <tr key={obj.Id}>
+                                <td>{obj.Nome}</td>
                                 <td className="text-center">
-                                    <a href={`/${urlRoot}/AddOrEdit/${obj.id}`} className="me-2">
+                                    <a href={`/${urlRoot}/AddOrEdit/${obj.Id}`} className="me-2">
                                         <i className="fas fa-edit"></i>
                                     </a>
                                     <span className="text-danger">

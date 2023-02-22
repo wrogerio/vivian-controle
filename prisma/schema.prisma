@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Categorias {
+  Id          Int           @id @default(autoincrement())
+  Nome        String?       @db.VarChar(90)
+  Lancamentos Lancamentos[]
+}
+
+model Lancamentos {
+  Id           Int         @id @default(autoincrement())
+  DtLancamento DateTime?   @db.Date
+  Descricao    String?     @db.VarChar(90)
+  Valor        Decimal?    @db.Decimal(18, 0)
+  CategoriaId  Int?
+  Categorias   Categorias? @relation(fields: [CategoriaId], references: [Id], onDelete: NoAction, onUpdate: NoAction, map: "fk_categ_lanc")
+
+  @@index([CategoriaId], map: "fk_categ_lanc_idx")
+}
