@@ -39,7 +39,7 @@ export const Add = (categoria: categoria) => {
 
 export const Update = (categoria: categoria) => {
     return new Promise((resolve, reject) => {
-        db.query("UPDATE categorias SET ? WHERE Id = ?", [categoria, categoria.Id], (err, result) => {
+        db.query("UPDATE categorias SET ? WHERE Id = ?", [categoria, categoria.id], (err, result) => {
             if (err) {
                 reject(false);
             } else {
