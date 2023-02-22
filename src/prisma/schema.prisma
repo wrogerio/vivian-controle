@@ -3,6 +3,23 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model categorias {
+  id          Int           @id @default(autoincrement())
+  nome        String?       @db.VarChar(80)
+  lancamentos lancamentos[]
+}
+
+model lancamentos {
+  id           Int         @id @default(autoincrement())
+  dtlancamento DateTime?   @db.Date
+  descricao    String?     @db.VarChar(90)
+  valor        Decimal?    @db.Decimal(18, 2)
+  categoriaid  Int?
+  categorias   categorias? @relation(fields: [categoriaid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_categ_lanc")
+
+  @@index([categoriaid], map: "fk_categ_lanc_idx")
 }
