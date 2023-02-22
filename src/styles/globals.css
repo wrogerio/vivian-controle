@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
-
 body {
-    font-family: "Poppins", sans-serif;
+    font-family: "Poppins", sans-serif !important;
 }
 
 .headerPageBg {
@@ -25,7 +24,7 @@ th {
     background: #f3f3f3 !important;
     border-bottom: 2px solid #e2e2e2 !important;
     padding: 0.5rem 0.2rem !important;
-    text-align: center;
+    text-align: center !important;
 }
 th:last-child {
     width: 80px;
