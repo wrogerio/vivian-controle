@@ -58,7 +58,7 @@ const Index = () => {
                             <tr key={obj.id}>
                                 <td>{new Date(obj.dtLancamento).toLocaleDateString("pt-BR")}</td>
                                 <td className="d-none d-md-table-cell">{obj.categoria}</td>
-                                <td>{obj.valor.toLocaleString("pt-BR")}</td>
+                                <td>{obj.valor.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</td>
                                 <td className="d-none d-lg-table-cell">{obj.descricao}</td>
                                 <td className="text-center">
                                     <a href={`/${urlRoot}/AddOrEdit/${obj.id}`} className="me-2">
