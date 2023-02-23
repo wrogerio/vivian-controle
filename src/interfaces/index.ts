@@ -1,5 +1,4 @@
 export interface categoria {
-import { categoria } from './index';
     id: number;
     nome: string;
 }
