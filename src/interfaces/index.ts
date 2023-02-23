@@ -1,4 +1,5 @@
 export interface categoria {
+import { categoria } from './index';
     id: number;
     nome: string;
 }
@@ -11,4 +12,9 @@ export interface lancamento {
     valor: number;
     categoriaId: number;
     categoria: string;
+}
+
+export interface items {
+    categoria: string;
+    total: number;
 }

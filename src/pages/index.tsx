@@ -1,10 +1,31 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { items } from "./../interfaces/index";
+import { categoria } from "@/interfaces";
 
 export default function Home() {
     // usereff
     const titleTotalRef = useRef<HTMLInputElement>(null);
     const [ano, setAno] = useState(new Date().getFullYear());
     const [mes, setMes] = useState(new Date().getMonth() + 1);
+    const [items, setItems] = useState([]);
+    let isImpar = false;
+
+    const getItems = () => {
+        var xBody = JSON.stringify({ ano: ano, mes: mes });
+        fetch(`/api/dashboard/items`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: xBody,
+        })
+            .then((obj) => {
+                return obj.json();
+            })
+            .then((res) => {
+                setItems(res);
+            });
+    };
 
     const getTotal = () => {
         var xBody = JSON.stringify({ ano: ano, mes: mes });
@@ -37,22 +58,23 @@ export default function Home() {
 
     useEffect(() => {
         getTotal();
+        getItems();
     }, []);
 
     useEffect(() => {
         getTotal();
+        getItems();
     }, [ano, mes]);
 
     return (
         <>
-            <div className="row border-bottom mb-1">
+            <div className="row">
                 <div className="col text-center pt-2">
-                    <h3 className="text-danger">Dashboard</h3>
-                    <h2 ref={titleTotalRef} id="totalTitle"></h2>
+                    <h1 className="text-danger fw-bold" ref={titleTotalRef} id="totalTitle"></h1>
                 </div>
             </div>
 
-            <div className="row border-bottom mb-1 pb-2">
+            <div className="row mb-3">
                 <div className="col-5">
                     <div className="form-group">
                         <label htmlFor="mes">Ano</label>
@@ -81,6 +103,25 @@ export default function Home() {
                         </select>
                     </div>
                 </div>
+            </div>
+
+            <div className="row">
+                {Array.isArray(items) &&
+                    items.map((obj: items, index: number) => {
+                        isImpar = !isImpar;
+                        return (
+                            <div className={isImpar ? "col-6 col-md-4 col-lg-3 col-xl-2 pe-1 mb-2" : "col-6 col-md-4 col-lg-3 col-xl-2  ps-1 mb-2"} key={obj.categoria}>
+                                <div className="card">
+                                    <div className="card-title bg-primary text-white py-2">
+                                        <h5 className="m-0 text-center">{obj.categoria}</h5>
+                                    </div>
+                                    <div className="card-body">
+                                        <h4 className="text-center">{ConvertToBrlCurrency(obj.total)}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
             </div>
         </>
     );
