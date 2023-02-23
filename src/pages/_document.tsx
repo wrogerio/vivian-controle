@@ -4,7 +4,6 @@ export default function Document() {
     return (
         <Html lang="pt-BR">
             <Head>
-                <title>Vivian Controle</title>
                 <meta charSet="utf-8" />
                 <meta lang="pt-BR" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
