@@ -10,4 +10,5 @@ export interface lancamento {
     descricao: string;
     valor: number;
     categoriaId: number;
+    categoria: string;
 }

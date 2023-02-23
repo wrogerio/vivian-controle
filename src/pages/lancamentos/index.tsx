@@ -1,13 +1,13 @@
 import HeaderPage from "./../../components/HeaderPage";
 import { useEffect, useState } from "react";
-import { categoria } from "./../../interfaces/index";
+import { lancamento } from "./../../interfaces/index";
 const Index = () => {
-    const [categorias, setCategorias] = useState({} as categoria);
-    const urlRoot = "categorias";
+    const [lancamentos, setLancamentos] = useState({} as lancamento);
+    const urlRoot = "lancamentos";
 
     useEffect(() => {
         LoadData().then((data) => {
-            setCategorias(data);
+            setLancamentos(data);
         });
     }, []);
 
@@ -29,7 +29,7 @@ const Index = () => {
                 .then((data: boolean) => {
                     if (data) {
                         LoadData().then((data) => {
-                            setCategorias(data);
+                            setLancamentos(data);
                         });
                     }
                 })
@@ -41,19 +41,25 @@ const Index = () => {
 
     return (
         <>
-            <HeaderPage title="Categorias" pageType="index" accessKey="c" textBt="Cadastrar" linkToBack={`/${urlRoot}/AddOrEdit/0`} iconBt="fas fa-plus-circle me-2"></HeaderPage>
+            <HeaderPage title="Lançamentos" pageType="index" accessKey="c" textBt="Cadastrar" linkToBack={`/${urlRoot}/AddOrEdit/0`} iconBt="fas fa-money-bill-wave me-2"></HeaderPage>
             <table className="table table-sm table-bordered">
                 <thead>
                     <tr>
-                        <th>Categoria</th>
+                        <th style={{ width: 110 }}>Data</th>
+                        <th className="d-none d-md-table-cell">Categoria</th>
+                        <th style={{ width: 110 }}>Valor</th>
+                        <th className="d-none d-lg-table-cell">Descrição</th>
                         <th className="text-center">#</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {Array.isArray(categorias) &&
-                        categorias.map((obj: categoria) => (
+                    {Array.isArray(lancamentos) &&
+                        lancamentos.map((obj: lancamento) => (
                             <tr key={obj.id}>
-                                <td>{obj.nome}</td>
+                                <td>{new Date(obj.dtLancamento).toLocaleDateString("pt-BR")}</td>
+                                <td className="d-none d-md-table-cell">{obj.categoria}</td>
+                                <td>{obj.valor.toLocaleString("pt-BR")}</td>
+                                <td className="d-none d-lg-table-cell">{obj.descricao}</td>
                                 <td className="text-center">
                                     <a href={`/${urlRoot}/AddOrEdit/${obj.id}`} className="me-2">
                                         <i className="fas fa-edit"></i>
