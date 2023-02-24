@@ -1,5 +1,14 @@
+import pool from "@/database/dbSQL";
 import db from "../database/db";
 import { categoria } from "./../interfaces/index";
+
+export const GetAllSQLServer = () => {
+    return new Promise(async (resolve, reject) => {
+        await pool.connect();
+        const result = await pool.request().query("SELECT * FROM categorias Order By Nome");
+        resolve(result.recordset);
+    });
+};
 
 export const GetAll = () => {
     return new Promise((resolve, reject) => {
@@ -39,7 +48,7 @@ export const Add = (categoria: categoria) => {
 
 export const Update = (categoria: categoria) => {
     return new Promise((resolve, reject) => {
-        db.query("UPDATE categorias SET ? WHERE Id = ?", [categoria, categoria.id], (err, result) => {
+        db.query("UPDATE categorias SET ? WHERE Id = ?", [categoria, categoria.Id], (err, result) => {
             if (err) {
                 reject(false);
             } else {

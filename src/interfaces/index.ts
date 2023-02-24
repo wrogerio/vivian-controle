@@ -1,6 +1,6 @@
 export interface categoria {
-    id: number;
-    nome: string;
+    Id: number;
+    Nome: string;
 }
 
 export interface lancamento {

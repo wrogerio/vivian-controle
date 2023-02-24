@@ -1,10 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { GetAll, Add } from "../../../controllers/Categoria.Conrtoller";
+import { GetAll, Add, GetAllSQLServer } from "../../../controllers/Categoria.Conrtoller";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     switch (req.method) {
         case "GET":
-            GetAll()
+            GetAllSQLServer()
                 .then((dados) => {
                     res.status(200).json(dados);
                 })

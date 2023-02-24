@@ -19,8 +19,8 @@ export const Alterar = () => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    id: categorias.id,
-                    nome: categorias.nome,
+                    Id: categorias.Id,
+                    Nome: categorias.Nome,
                 }),
             });
             redirectToList(await res.json());
@@ -31,7 +31,7 @@ export const Alterar = () => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    nome: categorias.nome,
+                    Nome: categorias.Nome,
                 }),
             });
             redirectToList(await res.json());
@@ -72,7 +72,7 @@ export const Alterar = () => {
                                 <div className="col mb-2">
                                     <div className="form-group">
                                         <label>Categoria</label>
-                                        <input type="text" className="form-control" name="nome" autoFocus value={categorias.nome} onChange={handleChange} />
+                                        <input type="text" className="form-control" name="nome" autoFocus value={categorias.Nome} onChange={handleChange} />
                                     </div>
                                 </div>
                             </div>
