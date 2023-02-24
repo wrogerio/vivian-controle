@@ -64,6 +64,7 @@ export const Alterar = () => {
     return (
         <>
             <HeaderPage title="Categorias" pageType="cadastrar" accessKey="v" textBt="Voltar" linkToBack={"/" + urlRoot} iconBt="fas fa-list me-2"></HeaderPage>
+            <pre>{JSON.stringify(categorias, null, 2)}</pre>
             <div className="row">
                 <div className="col">
                     <div className="card">
@@ -72,7 +73,7 @@ export const Alterar = () => {
                                 <div className="col mb-2">
                                     <div className="form-group">
                                         <label>Categoria</label>
-                                        <input type="text" className="form-control" name="nome" autoFocus value={categorias.Nome} onChange={handleChange} />
+                                        <input type="text" className="form-control" name="Nome" autoFocus value={categorias.Nome} onChange={handleChange} />
                                     </div>
                                 </div>
                             </div>

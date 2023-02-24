@@ -2,11 +2,11 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { Delete, GetById, Update } from "@/controllers/Categoria.Conrtoller";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-    const id = parseInt(req.query?.id as string);
-
+    const slug = req.query?.slug as string;
+    console.log(slug);
     switch (req.method) {
         case "GET":
-            const resultGet = await GetById(id);
+            const resultGet = await GetById(slug);
             res.status(200).json(resultGet);
             break;
         case "PUT":
@@ -14,7 +14,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             res.status(200).json(resultPut);
             break;
         case "DELETE":
-            const resultDelete = (await Delete(id)) as boolean;
+            const resultDelete = (await Delete(slug)) as boolean;
             res.status(200).json(resultDelete);
             break;
         default:

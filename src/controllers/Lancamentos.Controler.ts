@@ -1,11 +1,19 @@
 import db from "../database/db";
+import pool from "@/database/dbSQL";
 import { lancamento } from "./../interfaces/index";
 
 export const GetAll = () => {
-    var querie = `  select l.id, l.dtLancamento, DATE_FORMAT(dtLancamento, '%Y-%m-%d') as dtLancamentostring, l.descricao, l.valor, l.categoriaId, c.nome as categoria
+    var querie = `  select top 200 l.id, l.dtLancamento, DATE_FORMAT(dtLancamento, '%Y-%m-%d') as dtLancamentostring, l.descricao, l.valor, l.categoriaId, c.nome as categoria
                     from lancamentos l
                     inner join categorias c on l.CategoriaId = c.id
-                    order by dtLancamento desc, c.nome LIMIT 150`;
+                    order by dtLancamento desc, c.nome`;
+    try {
+        pool.connect();
+        const result = pool.request().query("SELECT * FROM lancamentos Order By Nome");
+        return result.recordset;
+    } catch (err) {
+        return err;
+    }
 
     return new Promise((resolve, reject) => {
         db.query(querie, (err, result) => {
