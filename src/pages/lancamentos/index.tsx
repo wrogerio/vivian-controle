@@ -20,7 +20,7 @@ const Index = () => {
         return data;
     };
 
-    const RemoveData = (id: number) => {
+    const RemoveData = (id: string) => {
         if (confirm("Deseja realmente remover ?")) {
             fetch(`/api/${urlRoot}/${id}`, {
                 method: "DELETE",
@@ -41,7 +41,7 @@ const Index = () => {
 
     return (
         <>
-            <HeaderPage title="Lançamentos" pageType="index" accessKey="c" textBt="Cadastrar" linkToBack={`/${urlRoot}/AddOrEdit/0`} iconBt="fas fa-money-bill-wave me-2"></HeaderPage>
+            <HeaderPage title="Lançametos" pageType="index" accessKey="c" textBt="Cadastrar" linkToBack={`/${urlRoot}/AddOrEdit/0`} iconBt="fas fa-money-bill-wave me-2"></HeaderPage>
             <table className="table table-sm table-bordered">
                 <thead>
                     <tr>
@@ -55,16 +55,16 @@ const Index = () => {
                 <tbody>
                     {Array.isArray(lancamentos) &&
                         lancamentos.map((obj: lancamento) => (
-                            <tr key={obj.id}>
-                                <td>{new Date(obj.dtLancamento).toLocaleDateString("pt-BR")}</td>
-                                <td className="d-none d-md-table-cell">{obj.categoria}</td>
-                                <td>{obj.valor.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</td>
-                                <td className="d-none d-lg-table-cell">{obj.descricao}</td>
+                            <tr key={obj.Id}>
+                                <td>{new Date(obj.DtLancamento).toLocaleDateString("pt-BR")}</td>
+                                <td className="d-none d-md-table-cell">{obj.Categoria}</td>
+                                <td>{obj.Valor.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</td>
+                                <td className="d-none d-lg-table-cell">{obj.Descricao}</td>
                                 <td className="text-center">
-                                    <a href={`/${urlRoot}/AddOrEdit/${obj.id}`} className="me-2">
+                                    <a href={`/${urlRoot}/AddOrEdit/${obj.Id}`} className="me-2">
                                         <i className="fas fa-edit"></i>
                                     </a>
-                                    <span className="text-danger" onClick={(e) => RemoveData(obj.id)}>
+                                    <span className="text-danger" onClick={(e) => RemoveData(obj.Id)}>
                                         <i className="fas fa-trash-alt"></i>
                                     </span>
                                 </td>

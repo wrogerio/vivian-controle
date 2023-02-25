@@ -1,16 +1,16 @@
 export interface categoria {
-    Id: number;
+    Id: string;
     Nome: string;
 }
 
 export interface lancamento {
-    id: number;
-    dtLancamento: Date;
-    dtLancamentostring: string;
-    descricao: string;
-    valor: number;
-    categoriaId: number;
-    categoria: string;
+    Id: string;
+    DtLancamento: Date;
+    DtLancamentoString: string;
+    Descricao: string;
+    Valor: number;
+    CategoriaId: string;
+    Categoria: string;
 }
 
 export interface items {

@@ -20,11 +20,11 @@ export const Alterar = () => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    id: lancamentos.id,
-                    dtLancamento: lancamentos.dtLancamentostring,
-                    descricao: lancamentos.descricao,
-                    valor: lancamentos.valor,
-                    categoriaId: lancamentos.categoriaId,
+                    Id: lancamentos.Id,
+                    DtLancamento: lancamentos.DtLancamentoString,
+                    Descricao: lancamentos.Descricao,
+                    Valor: lancamentos.Valor,
+                    CategoriaId: lancamentos.CategoriaId,
                 }),
             });
             redirectToList(await res.json());
@@ -35,10 +35,10 @@ export const Alterar = () => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    dtLancamento: lancamentos.dtLancamentostring,
-                    descricao: lancamentos.descricao,
-                    valor: lancamentos.valor,
-                    categoriaId: lancamentos.categoriaId,
+                    DtLancamento: lancamentos.DtLancamentoString,
+                    Descricao: lancamentos.Descricao,
+                    Valor: lancamentos.Valor,
+                    CategoriaId: lancamentos.CategoriaId,
                 }),
             });
             redirectToList(await res.json());
@@ -86,18 +86,18 @@ export const Alterar = () => {
                                 <div className="col-12 col-md-6 col-lg-3 mb-2">
                                     <div className="form-group">
                                         <label>Data</label>
-                                        <input type="date" className="form-control" name="dtlancamento" autoFocus defaultValue={lancamentos.dtLancamentostring} onChange={(e) => setLancamentos({ ...lancamentos, dtLancamentostring: e.target.value, dtLancamento: new Date(e.target.value) })} />
+                                        <input type="date" className="form-control" name="DtLancamento" id="DtLancamento" autoFocus value={lancamentos.DtLancamentoString} onChange={(e) => setLancamentos({ ...lancamentos, DtLancamentoString: e.target.value, DtLancamento: new Date(e.target.value) })} />
                                     </div>
                                 </div>
                                 <div className="col-12 col-md-6 col-lg-3 mb-2">
                                     <div className="form-group">
                                         <label>Categoria</label>
-                                        <select className="form-control" value={lancamentos.categoriaId} onChange={(e) => setLancamentos({ ...lancamentos, categoriaId: parseInt(e.target.value), categoria: e.target.options[e.target.selectedIndex].text })}>
+                                        <select className="form-control" name="CategoriaId" id="CategoriaId" value={lancamentos.CategoriaId} onChange={(e) => setLancamentos({ ...lancamentos, CategoriaId: e.target.value, Categoria: e.target.options[e.target.selectedIndex].text })}>
                                             <option value="0">Selecione</option>
                                             {Array.isArray(categorias) &&
                                                 categorias.map((item) => (
-                                                    <option key={item.id} value={item.id}>
-                                                        {item.nome}
+                                                    <option key={item.Id} value={item.Id}>
+                                                        {item.Nome}
                                                     </option>
                                                 ))}
                                         </select>
@@ -106,13 +106,13 @@ export const Alterar = () => {
                                 <div className="col-12 col-md-8 col-lg-4 mb-2">
                                     <div className="form-group">
                                         <label>Descrição</label>
-                                        <input type="text" className="form-control" name="descricao" value={lancamentos.descricao} onChange={handleChange} />
+                                        <input type="text" className="form-control" name="Descricao" id="Descricao" value={lancamentos.Descricao} onChange={handleChange} />
                                     </div>
                                 </div>
                                 <div className="col-12 col-md-4 col-lg-2  mb-2">
                                     <div className="form-group">
                                         <label>Valor</label>
-                                        <input type="number" step={0.01} className="form-control" name="valor" value={lancamentos.valor} onChange={handleChange} />
+                                        <input type="number" step={0.01} className="form-control" name="Valor" id="Valor" value={lancamentos.Valor} onChange={handleChange} />
                                     </div>
                                 </div>
                             </div>

@@ -3,7 +3,6 @@ import { Delete, GetById, Update } from "@/controllers/Categoria.Conrtoller";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     const slug = req.query?.slug as string;
-    console.log(slug);
     switch (req.method) {
         case "GET":
             const resultGet = await GetById(slug);
