@@ -1,10 +1,10 @@
 const sql = require("mssql");
 const config = {
-    user: "investimentousr",
+    user: "viviancontroleusr",
     password: "Brasil82+82",
     server: "mssql-112705-0.cloudclusters.net",
     port: 19809,
-    database: "InvestimentoDb",
+    database: "VivianControleDb",
     options: {
         encrypt: true,
         trustServerCertificate: true,
