@@ -1,6 +1,7 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { items } from "./../interfaces/index";
 import { categoria } from "@/interfaces";
+import { ConvertNumberTwoDigits } from "@/helpers/util";
 
 export default function Home() {
     // usereff
@@ -112,7 +113,12 @@ export default function Home() {
                             <div className={isImpar ? "col-6 col-md-4 col-lg-3 col-xl-2 pe-1 mb-2" : "col-6 col-md-4 col-lg-3 col-xl-2  ps-1 mb-2"} key={index}>
                                 <div className="card">
                                     <div className="card-title bg-primary text-white py-2">
-                                        <h5 className="m-0 text-center">{obj.Categoria}</h5>
+                                        <span className="m-0 text-center fs-6">
+                                            <div className="d-flex justify-content-between px-2">
+                                                {obj.Categoria}
+                                                <span className="fw-bold">{ConvertNumberTwoDigits(index + 1)} º</span>
+                                            </div>
+                                        </span>
                                     </div>
                                     <div className="card-body">
                                         <h4 className="text-center">{ConvertToBrlCurrency(obj.Total)}</h4>
