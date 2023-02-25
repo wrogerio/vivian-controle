@@ -1,5 +1,4 @@
 import pool from "@/database/dbSQL";
-import db from "../database/db";
 
 export const GetTotal = async (ano: number, mes: number) => {
     var querie = `  SELECT Sum(l.Valor) as Total
