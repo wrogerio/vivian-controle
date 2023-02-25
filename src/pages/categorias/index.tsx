@@ -20,7 +20,7 @@ const Index = () => {
         return data;
     };
 
-    const RemoveData = (id: number) => {
+    const RemoveData = (id: string) => {
         if (confirm("Deseja realmente remover ?")) {
             fetch(`/api/${urlRoot}/${id}`, {
                 method: "DELETE",
