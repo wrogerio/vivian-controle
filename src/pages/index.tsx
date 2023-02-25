@@ -42,8 +42,8 @@ export default function Home() {
             .then((res) => {
                 if (titleTotalRef.current) {
                     titleTotalRef.current.innerHTML = ConvertToBrlCurrency(0);
-                    if (res[0].total) {
-                        titleTotalRef.current.innerHTML = ConvertToBrlCurrency(res[0].total);
+                    if (res[0].Total) {
+                        titleTotalRef.current.innerHTML = ConvertToBrlCurrency(res[0].Total);
                     }
                 }
             });
@@ -80,7 +80,6 @@ export default function Home() {
                         <label htmlFor="mes">Ano</label>
                         <select name="ano" className="form-control" onChange={(e) => setAno(parseInt(e.target.value))}>
                             <option value="2023">2023</option>
-                            <option value="2022">2022</option>
                         </select>
                     </div>
                 </div>
@@ -110,13 +109,13 @@ export default function Home() {
                     items.map((obj: items, index: number) => {
                         isImpar = !isImpar;
                         return (
-                            <div className={isImpar ? "col-6 col-md-4 col-lg-3 col-xl-2 pe-1 mb-2" : "col-6 col-md-4 col-lg-3 col-xl-2  ps-1 mb-2"} key={obj.categoria}>
+                            <div className={isImpar ? "col-6 col-md-4 col-lg-3 col-xl-2 pe-1 mb-2" : "col-6 col-md-4 col-lg-3 col-xl-2  ps-1 mb-2"} key={index}>
                                 <div className="card">
                                     <div className="card-title bg-primary text-white py-2">
-                                        <h5 className="m-0 text-center">{obj.categoria}</h5>
+                                        <h5 className="m-0 text-center">{obj.Categoria}</h5>
                                     </div>
                                     <div className="card-body">
-                                        <h4 className="text-center">{ConvertToBrlCurrency(obj.total)}</h4>
+                                        <h4 className="text-center">{ConvertToBrlCurrency(obj.Total)}</h4>
                                     </div>
                                 </div>
                             </div>

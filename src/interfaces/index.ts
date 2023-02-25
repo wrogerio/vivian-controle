@@ -14,6 +14,6 @@ export interface lancamento {
 }
 
 export interface items {
-    categoria: string;
-    total: number;
+    Categoria: string;
+    Total: number;
 }

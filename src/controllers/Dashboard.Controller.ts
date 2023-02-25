@@ -1,34 +1,35 @@
+import pool from "@/database/dbSQL";
 import db from "../database/db";
 
 export const GetTotal = async (ano: number, mes: number) => {
-    var querie = `  select Sum(valor) as total
-                    from lancamentos
-                    where year(dtLancamento) = ${ano} and month(dtLancamento) = ${mes}`;
-    return new Promise((resolve, reject) => {
-        db.query(querie, (err, result) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(result);
-            }
-        });
+    var querie = `  SELECT Sum(l.Valor) as Total
+                    FROM Lancamentos l
+                    WHERE YEAR(l.DtLancamento) = ${ano} AND MONTH(l.DtLancamento) = ${mes}`;
+    return new Promise(async (resolve, reject) => {
+        try {
+            await pool.connect();
+            const result = await pool.request().query(querie);
+            resolve(result.recordset);
+        } catch (err) {
+            reject(err);
+        }
     });
 };
 
 export const GetItems = async (ano: number, mes: number) => {
-    var querie = `  select c.nome as categoria, Sum(valor) as total
-                    from lancamentos l
-                    inner join categorias c on l.categoriaId = c.id
-                    where year(dtLancamento) = ${ano} and month(dtLancamento) = ${mes}
-                    group by c.nome
-                    order by 2 desc`;
-    return new Promise((resolve, reject) => {
-        db.query(querie, (err, result) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(result);
-            }
-        });
+    var querie = `  SELECT c.Nome AS Categoria, SUM(l.Valor) AS Total
+                    FROM Lancamentos l
+                    INNER JOIN Categorias c ON l.CategoriaId = c.Id
+                    WHERE YEAR(l.DtLancamento) = ${ano} AND MONTH(l.DtLancamento) = ${mes}
+                    GROUP BY c.Nome
+                    ORDER BY 2 DESC`;
+    return new Promise(async (resolve, reject) => {
+        try {
+            await pool.connect();
+            const result = await pool.request().query(querie);
+            resolve(result.recordset);
+        } catch (err) {
+            reject(err);
+        }
     });
 };
