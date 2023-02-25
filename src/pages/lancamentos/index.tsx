@@ -1,6 +1,7 @@
 import HeaderPage from "./../../components/HeaderPage";
 import { useEffect, useState } from "react";
 import { lancamento } from "./../../interfaces/index";
+import { ConvertToPtBrUTC } from "@/helpers/util";
 const Index = () => {
     const [lancamentos, setLancamentos] = useState({} as lancamento);
     const urlRoot = "lancamentos";
@@ -56,7 +57,7 @@ const Index = () => {
                     {Array.isArray(lancamentos) &&
                         lancamentos.map((obj: lancamento) => (
                             <tr key={obj.Id}>
-                                <td>{new Date(obj.DtLancamento).toLocaleDateString("pt-BR")}</td>
+                                <td>{ConvertToPtBrUTC(new Date(obj.DtLancamento)).toLocaleDateString("pt-BR")}</td>
                                 <td className="d-none d-md-table-cell">{obj.Categoria}</td>
                                 <td>{obj.Valor.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</td>
                                 <td className="d-none d-lg-table-cell">{obj.Descricao}</td>
