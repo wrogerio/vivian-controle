@@ -90,13 +90,13 @@ export const Alterar = () => {
                                 <div className="col-12 col-md-6 col-lg-3 mb-2">
                                     <div className="form-group">
                                         <label>Data</label>
-                                        <input type="date" className="form-control" name="DtLancamento" id="DtLancamento" autoFocus defaultValue={dtHoje} value={lancamentos.DtLancamentoString} onChange={(e) => setLancamentos({ ...lancamentos, DtLancamentoString: e.target.value, DtLancamento: new Date(e.target.value) })} />
+                                        <input type="date" className="form-control" name="DtLancamento" id="DtLancamento" defaultValue={dtHoje} value={lancamentos.DtLancamentoString} onChange={(e) => setLancamentos({ ...lancamentos, DtLancamentoString: e.target.value, DtLancamento: new Date(e.target.value) })} />
                                     </div>
                                 </div>
                                 <div className="col-12 col-md-6 col-lg-3 mb-2">
                                     <div className="form-group">
                                         <label>Categoria</label>
-                                        <select className="form-control" name="CategoriaId" id="CategoriaId" value={lancamentos.CategoriaId} onChange={(e) => setLancamentos({ ...lancamentos, CategoriaId: e.target.value, Categoria: e.target.options[e.target.selectedIndex].text })}>
+                                        <select className="form-control" name="CategoriaId" id="CategoriaId" autoFocus value={lancamentos.CategoriaId} onChange={(e) => setLancamentos({ ...lancamentos, CategoriaId: e.target.value, Categoria: e.target.options[e.target.selectedIndex].text })}>
                                             <option value="0">Selecione</option>
                                             {Array.isArray(categorias) &&
                                                 categorias.map((item) => (
