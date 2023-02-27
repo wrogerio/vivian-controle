@@ -1,4 +1,5 @@
 import HeaderPage from "@/components/HeaderPage";
+import { ConvertToStringDate } from "@/helpers/util";
 import { categoria, lancamento } from "@/interfaces";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -10,6 +11,7 @@ export const Alterar = () => {
 
     const [lancamentos, setLancamentos] = useState({} as lancamento);
     const [categorias, setCategorias] = useState({} as categoria);
+    const dtHoje = ConvertToStringDate(new Date());
 
     const handleData = async () => {
         const id = window.location.href.split("/AddOrEdit/")[1];
@@ -72,6 +74,8 @@ export const Alterar = () => {
                 .catch((err) => {
                     console.log(err);
                 });
+        } else {
+            setLancamentos({ ...lancamentos, DtLancamentoString: dtHoje } as lancamento);
         }
     }, []);
 
@@ -86,7 +90,7 @@ export const Alterar = () => {
                                 <div className="col-12 col-md-6 col-lg-3 mb-2">
                                     <div className="form-group">
                                         <label>Data</label>
-                                        <input type="date" className="form-control" name="DtLancamento" id="DtLancamento" autoFocus value={lancamentos.DtLancamentoString} onChange={(e) => setLancamentos({ ...lancamentos, DtLancamentoString: e.target.value, DtLancamento: new Date(e.target.value) })} />
+                                        <input type="date" className="form-control" name="DtLancamento" id="DtLancamento" autoFocus defaultValue={dtHoje} value={lancamentos.DtLancamentoString} onChange={(e) => setLancamentos({ ...lancamentos, DtLancamentoString: e.target.value, DtLancamento: new Date(e.target.value) })} />
                                     </div>
                                 </div>
                                 <div className="col-12 col-md-6 col-lg-3 mb-2">
