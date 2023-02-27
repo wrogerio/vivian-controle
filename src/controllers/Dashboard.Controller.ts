@@ -2,7 +2,7 @@ import pool from "@/database/dbSQL";
 
 export const GetGastoDiario = async (ano: number, mes: number) => {
     var querie = `  SET LANGUAGE Portuguese;
-                    SELECT Ano, Mes, Dia, Total 
+                    SELECT Ano, Mes, Dia, DiaNome, Total 
                     FROM vGastoDiario
                     WHERE Ano = ${ano} AND Mes = ${mes}
                     ORDER BY Dia Desc`;

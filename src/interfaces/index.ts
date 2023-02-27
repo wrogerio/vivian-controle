@@ -22,5 +22,6 @@ export interface gastoDiario {
     Ano: number;
     Mes: number;
     Dia: number;
+    DiaNome: string;
     Total: number;
 }

@@ -125,8 +125,8 @@ export default function Home() {
                     <table className="table table-bordered table-sm">
                         <thead>
                             <tr>
-                                <th>Mês</th>
                                 <th>Dia</th>
+                                <th>Nome</th>
                                 <th>Valor</th>
                             </tr>
                         </thead>
@@ -135,8 +135,8 @@ export default function Home() {
                                 gastoDiario.map((item: gastoDiario, index: number) => {
                                     return (
                                         <tr key={index}>
-                                            <td>{ConvertToMesNome(item.Mes)}</td>
                                             <td>{item.Dia}</td>
+                                            <td>{item.DiaNome}</td>
                                             <td style={{ width: 150 }}>{ConvertToBrlCurrency(item.Total)}</td>
                                         </tr>
                                     );
