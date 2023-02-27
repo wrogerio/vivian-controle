@@ -137,7 +137,11 @@ export default function Home() {
                                         <tr key={index}>
                                             <td>{item.Dia}</td>
                                             <td>{item.DiaNome}</td>
-                                            <td style={{ width: 150 }}>{ConvertToBrlCurrency(item.Total)}</td>
+                                            <td style={{ width: 150 }}>
+                                                <span style={{ fontSize: "1.1rem" }} className="fw-bold">
+                                                    {ConvertToBrlCurrency(item.Total)}
+                                                </span>
+                                            </td>
                                         </tr>
                                     );
                                 })}
