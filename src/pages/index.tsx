@@ -1,7 +1,8 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
-import { items } from "./../interfaces/index";
+import { gastoDiario, items } from "./../interfaces/index";
 import { categoria } from "@/interfaces";
 import { ConvertNumberTwoDigits } from "@/helpers/util";
+import { ConvertToMesNome } from "./../helpers/util";
 
 export default function Home() {
     // usereff
@@ -9,6 +10,7 @@ export default function Home() {
     const [ano, setAno] = useState(new Date().getFullYear());
     const [mes, setMes] = useState(new Date().getMonth() + 1);
     const [items, setItems] = useState([]);
+    const [gastoDiario, setGastoDiario] = useState([]);
     let isImpar = false;
 
     const getItems = () => {
@@ -25,6 +27,23 @@ export default function Home() {
             })
             .then((res) => {
                 setItems(res);
+            });
+    };
+
+    const getGastoDiario = () => {
+        var xBody = JSON.stringify({ ano: ano, mes: mes });
+        fetch(`/api/dashboard/gastoDiario`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: xBody,
+        })
+            .then((obj) => {
+                return obj.json();
+            })
+            .then((res) => {
+                setGastoDiario(res);
             });
     };
 
@@ -60,11 +79,7 @@ export default function Home() {
     useEffect(() => {
         getTotal();
         getItems();
-    }, []);
-
-    useEffect(() => {
-        getTotal();
-        getItems();
+        getGastoDiario();
     }, [ano, mes]);
 
     return (
@@ -105,6 +120,31 @@ export default function Home() {
                 </div>
             </div>
 
+            <div className="row">
+                <div className="col">
+                    <table className="table table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <th>Mês</th>
+                                <th>Dia</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {Array.isArray(gastoDiario) &&
+                                gastoDiario.map((item: gastoDiario, index: number) => {
+                                    return (
+                                        <tr key={index}>
+                                            <td>{ConvertToMesNome(item.Mes)}</td>
+                                            <td>{item.Dia}</td>
+                                            <td style={{ width: 150 }}>{ConvertToBrlCurrency(item.Total)}</td>
+                                        </tr>
+                                    );
+                                })}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <div className="row">
                 {Array.isArray(items) &&
                     items.map((obj: items, index: number) => {

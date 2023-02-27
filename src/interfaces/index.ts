@@ -17,3 +17,10 @@ export interface items {
     Categoria: string;
     Total: number;
 }
+
+export interface gastoDiario {
+    Ano: number;
+    Mes: number;
+    Dia: number;
+    Total: number;
+}
