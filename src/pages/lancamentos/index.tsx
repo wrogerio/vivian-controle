@@ -1,7 +1,7 @@
 import HeaderPage from "./../../components/HeaderPage";
 import { useEffect, useState } from "react";
 import { lancamento } from "./../../interfaces/index";
-import { ConvertToPtBrUTC } from "@/helpers/util";
+import { ConvertToMesNome, ConvertToPtBrUTC } from "@/helpers/util";
 const Index = () => {
     const [lancamentos, setLancamentos] = useState({} as lancamento);
     const urlRoot = "lancamentos";
@@ -86,7 +86,7 @@ const Index = () => {
                 <tbody>
                     {Array.isArray(lancamentos) &&
                         lancamentos.map((obj: lancamento) => (
-                            <tr key={obj.Id} data-search={`${ConvertToPtBrUTC(new Date(obj.DtLancamento)).toLocaleDateString("pt-BR")}${obj.Tipo.toLowerCase()}${obj.Descricao.toLowerCase()}${obj.Categoria.toLowerCase()}`}>
+                            <tr key={obj.Id} data-search={`${ConvertToMesNome(new Date(obj.DtLancamento).getMonth() + 1).toLowerCase()}${ConvertToPtBrUTC(new Date(obj.DtLancamento)).toLocaleDateString("pt-BR")}${obj.Tipo.toLowerCase()}${obj.Descricao.toLowerCase()}${obj.Categoria.toLowerCase()}`}>
                                 <td
                                     onClick={() => {
                                         $("#tipoDesk").text(obj.Descricao);
@@ -99,7 +99,7 @@ const Index = () => {
                                 <td className="d-none d-md-table-cell">{obj.Tipo}</td>
                                 <td>
                                     <div className="d-flex justify-content-around px-3">
-                                        <div>{obj.Tipo[0] == "G" ? <span className="badge text-bg-danger">Dia</span> : <span className="badge text-bg-success">Mês</span>}</div>
+                                        <div>{obj.Tipo[0] == "D" ? <span className="badge text-bg-success">Dia</span> : <span className="badge text-bg-danger">Mês</span>}</div>
                                         <div>
                                             <span>{obj.Valor.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</span>
                                         </div>

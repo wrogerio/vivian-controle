@@ -4,6 +4,7 @@ import { lancamento } from "./../interfaces/index";
 export const GetAll = () => {
     var querie = `  SELECT TOP 200 l.Id, l.DtLancamento, l.DtLancamentoString, l.Descricao, l.Valor, l.CategoriaId, l.Categoria, l.TipoId, l.Tipo 
                     FROM vLancamentos l
+                    WHERE l.DtLancamento >= dbo.f_LimitMonth()
                     ORDER BY l.DtLancamento DESC, l.Categoria`;
     return new Promise(async (resolve, reject) => {
         try {
