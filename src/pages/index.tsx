@@ -6,7 +6,8 @@ import { ConvertToMesNome } from "./../helpers/util";
 
 export default function Home() {
     // usereff
-    const titleTotalRef = useRef<HTMLInputElement>(null);
+    const titleTotalDiarioRef = useRef<HTMLInputElement>(null);
+    const titleTotalMensalRef = useRef<HTMLInputElement>(null);
     const [ano, setAno] = useState(new Date().getFullYear());
     const [mes, setMes] = useState(new Date().getMonth() + 1);
     const [items, setItems] = useState([]);
@@ -60,11 +61,13 @@ export default function Home() {
                 return obj.json();
             })
             .then((res) => {
-                if (titleTotalRef.current) {
-                    titleTotalRef.current.innerHTML = ConvertToBrlCurrency(0);
-                    if (res[0].Total) {
-                        titleTotalRef.current.innerHTML = ConvertToBrlCurrency(res[0].Total);
-                    }
+                console.log(res);
+                if (titleTotalDiarioRef.current && titleTotalMensalRef.current) {
+                    titleTotalDiarioRef.current.innerHTML = ConvertToBrlCurrency(0);
+                    titleTotalMensalRef.current.innerHTML = ConvertToBrlCurrency(0);
+                    if (res[0].Total) titleTotalDiarioRef.current.innerHTML = `Diário: ${ConvertToBrlCurrency(res[0].Total)}`;
+                    if (res[0].Total) titleTotalMensalRef.current.innerHTML = `Mensal: ${ConvertToBrlCurrency(res[1].Total)}`;
+                    // }
                 }
             });
     };
@@ -86,7 +89,8 @@ export default function Home() {
         <>
             <div className="row">
                 <div className="col text-center pt-2">
-                    <h1 className="text-danger fw-bold" ref={titleTotalRef} id="totalTitle"></h1>
+                    <h1 className="text-danger fw-bold" ref={titleTotalDiarioRef} id="totalDiarioTitle"></h1>
+                    <h1 className="text-success fw-bold" ref={titleTotalMensalRef} id="totalMensalTitle"></h1>
                 </div>
             </div>
 

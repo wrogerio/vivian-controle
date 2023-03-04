@@ -18,9 +18,12 @@ export const GetGastoDiario = async (ano: number, mes: number) => {
 };
 
 export const GetTotal = async (ano: number, mes: number) => {
-    var querie = `  SELECT Sum(l.Valor) as Total
+    var querie = `  SELECT t.Nome As Tipo, Sum(l.Valor) as Total
                     FROM Lancamentos l
-                    WHERE YEAR(l.DtLancamento) = ${ano} AND MONTH(l.DtLancamento) = ${mes}`;
+                    INNER JOIN Tipos t on l.TipoId = t.Id
+                    WHERE YEAR(l.DtLancamento) = ${ano} AND MONTH(l.DtLancamento) = ${mes}
+                    GROUP BY t.Nome
+                    ORDER BY t.Nome Desc`;
     return new Promise(async (resolve, reject) => {
         try {
             await pool.connect();
