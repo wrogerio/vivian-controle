@@ -61,13 +61,11 @@ export default function Home() {
                 return obj.json();
             })
             .then((res) => {
-                console.log(res);
                 if (titleTotalDiarioRef.current && titleTotalMensalRef.current) {
-                    titleTotalDiarioRef.current.innerHTML = ConvertToBrlCurrency(0);
-                    titleTotalMensalRef.current.innerHTML = ConvertToBrlCurrency(0);
-                    if (res[0].Total) titleTotalDiarioRef.current.innerHTML = `Diário: ${ConvertToBrlCurrency(res[0].Total)}`;
-                    if (res[0].Total) titleTotalMensalRef.current.innerHTML = `Mensal: ${ConvertToBrlCurrency(res[1].Total)}`;
-                    // }
+                    const totalDiario = res.filter((x: any) => x.Tipo == "Diario")[0].Total;
+                    const totalMensal = res.filter((x: any) => x.Tipo == "Mensal")[0].Total;
+                    titleTotalDiarioRef.current.innerHTML = `Diário: ${ConvertToBrlCurrency(totalDiario || 0)}`;
+                    titleTotalMensalRef.current.innerHTML = `Mensal: ${ConvertToBrlCurrency(totalMensal || 0)}`;
                 }
             });
     };
