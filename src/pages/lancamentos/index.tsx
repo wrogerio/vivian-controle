@@ -62,7 +62,13 @@ const Index = () => {
     return (
         <>
             <HeaderPage title="Lançametos" pageType="index" accessKey="c" textBt="Cadastrar" linkToBack={`/${urlRoot}/AddOrEdit/0`} iconBt="fas fa-money-bill-wave me-2"></HeaderPage>
-            <div className="bg-primary text-white text-center py-1">
+            <div
+                id="divDesc"
+                className="bg-primary text-white text-center py-1"
+                onClick={() => {
+                    $("#divDesc").hide();
+                }}
+            >
                 <span className="fs-2 fw-bold" id="tipoDesk"></span>
             </div>
             <input type="text" className="form-control mb-1" id="txtSearch" name="txtSearch" placeholder="Pesquisar valores" onChange={(e) => HandleSearchText(e.target.value)} />
@@ -84,7 +90,7 @@ const Index = () => {
                                 <td
                                     onClick={() => {
                                         $("#tipoDesk").text(obj.Descricao);
-                                        $("#dialogMessage").dialog("open");
+                                        $("#divDesc").show();
                                     }}
                                 >
                                     {ConvertToPtBrUTC(new Date(obj.DtLancamento)).toLocaleDateString("pt-BR")}
