@@ -7,7 +7,6 @@ const Index = () => {
     const urlRoot = "lancamentos";
 
     useEffect(() => {
-        require("../../helpers/teste");
         LoadData().then((data) => {
             setLancamentos(data);
         });
@@ -63,10 +62,8 @@ const Index = () => {
     return (
         <>
             <HeaderPage title="Lançametos" pageType="index" accessKey="c" textBt="Cadastrar" linkToBack={`/${urlRoot}/AddOrEdit/0`} iconBt="fas fa-money-bill-wave me-2"></HeaderPage>
-            <div id="dialogMessage">
-                <div className="bg-primary text-white text-center py-3">
-                    <span className="fs-2 fw-bold" id="tipoDesk"></span>
-                </div>
+            <div className="bg-primary text-white text-center py-1">
+                <span className="fs-2 fw-bold" id="tipoDesk"></span>
             </div>
             <input type="text" className="form-control mb-1" id="txtSearch" name="txtSearch" placeholder="Pesquisar valores" onChange={(e) => HandleSearchText(e.target.value)} />
             <table className="table table-sm table-bordered">
