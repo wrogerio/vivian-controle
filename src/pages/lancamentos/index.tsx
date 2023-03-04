@@ -112,14 +112,12 @@ const Index = () => {
             </table>
 
             <div className="modal" id="modalDesc">
-                <div className="modal-dialog">
+                <div className="modal-dialog modal-dialog-centered">
                     <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title">Descrição</h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div className="modal-body">
-                            <p id="ValorDesc"></p>
+                        <div className="modal-body py-4">
+                            <div className="text-center">
+                                <p className="fs-1 fw-bold m-0" id="ValorDesc"></p>
+                            </div>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
