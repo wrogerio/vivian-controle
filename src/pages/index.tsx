@@ -87,14 +87,14 @@ export default function Home() {
 
     const setAmostraDoDiaSelecionado = async (item: gastoDiario) => {
         await getGastoNoDiaSelecioando(item.Ano, item.Mes, item.Dia);
-        let textoHtml = "<ul class='list-group'>";
+        let textoHtml = "";
         compraNoDiaSelecionado.forEach((item: lancamento) => {
             textoHtml += `
-                <li class='list-group-item'>
-                    <span class='fs-5 d-block'>${item.Categoria}<span>
-                    <span class='fs-5 d-block'>${item.Descricao}<span>
-                    <span class='fs-5 d-block'>${ConvertToBrlCurrency(item.Valor)}<span>
-                </li>
+                    <div class='mb-2'>
+                    <span class='fs-7 d-block'>${item.Categoria}<span>
+                    <span class='fs-7 d-block'>${item.Descricao}<span>
+                    <span class='fs-7 d-block'>${ConvertToBrlCurrency(item.Valor)}<span>
+                    </div>
                 `;
         });
 
@@ -113,8 +113,9 @@ export default function Home() {
             <div
                 id="divDesc"
                 className="bg-primary text-white text-center py-1 d-none"
-                style={{ position: "fixed", width: "99vw", height: "60vh", top: 2, left: 2, overflow: "scroll", zIndex: 999 }}
+                style={{ position: "fixed", width: "99vw", top: 2, left: 2, zIndex: 999 }}
                 onDoubleClick={() => {
+                    console.log("fdsfasd");
                     $("#divDesc").addClass("d-none");
                 }}
             >
