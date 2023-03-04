@@ -77,16 +77,16 @@ const Index = () => {
                 <tbody>
                     {Array.isArray(lancamentos) &&
                         lancamentos.map((obj: lancamento) => (
-                            <tr
-                                data-bs-toggle="modal"
-                                data-bs-target="#modalDesc"
-                                onClick={() => {
-                                    $("#ValorDesc").text(obj.Descricao);
-                                }}
-                                key={obj.Id}
-                                data-search={`${ConvertToPtBrUTC(new Date(obj.DtLancamento)).toLocaleDateString("pt-BR")}${obj.Tipo.toLowerCase()}${obj.Descricao.toLowerCase()}${obj.Categoria.toLowerCase()}`}
-                            >
-                                <td>{ConvertToPtBrUTC(new Date(obj.DtLancamento)).toLocaleDateString("pt-BR")}</td>
+                            <tr key={obj.Id} data-search={`${ConvertToPtBrUTC(new Date(obj.DtLancamento)).toLocaleDateString("pt-BR")}${obj.Tipo.toLowerCase()}${obj.Descricao.toLowerCase()}${obj.Categoria.toLowerCase()}`}>
+                                <td
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalDesc"
+                                    onClick={() => {
+                                        $("#ValorDesc").text(obj.Descricao);
+                                    }}
+                                >
+                                    {ConvertToPtBrUTC(new Date(obj.DtLancamento)).toLocaleDateString("pt-BR")}
+                                </td>
                                 <td className="d-none d-md-table-cell">{obj.Categoria}</td>
                                 <td className="d-none d-md-table-cell">{obj.Tipo}</td>
                                 <td>
