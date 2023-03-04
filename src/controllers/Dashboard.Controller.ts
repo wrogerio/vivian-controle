@@ -22,7 +22,6 @@ export const GetGastoPorDia = async (ano: number, mes: number, dia: number) => {
                     FROM vLancamentos
                     WHERE Ano = ${ano} and Mes = ${mes} And Dia = ${dia}
                     ORDER BY DtLancamento Desc`;
-    console.log(querie);
     return new Promise(async (resolve, reject) => {
         try {
             await pool.connect();

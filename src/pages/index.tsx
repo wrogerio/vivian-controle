@@ -113,7 +113,7 @@ export default function Home() {
             <div
                 id="divDesc"
                 className="bg-primary text-white text-center py-1 d-none"
-                style={{ position: "fixed", width: "99vw", top: 2, left: 2 }}
+                style={{ position: "fixed", width: "99vw", height: "60vh", top: 2, left: 2, overflow: "scroll", zIndex: 999 }}
                 onDoubleClick={() => {
                     $("#divDesc").addClass("d-none");
                 }}
@@ -127,7 +127,6 @@ export default function Home() {
                     <h1 className="text-success fw-bold" ref={titleTotalMensalRef} id="totalMensalTitle"></h1>
                 </div>
             </div>
-            <pre>{JSON.stringify(compraNoDiaSelecionado)}</pre>
             <div className="row mb-3">
                 <div className="col-5">
                     <div className="form-group">

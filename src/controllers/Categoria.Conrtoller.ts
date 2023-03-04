@@ -46,7 +46,6 @@ export const Update = (categoria: categoria) => {
         try {
             await pool.connect();
             const result = await pool.request().query(querie);
-            console.log(result);
             resolve(true);
         } catch (err) {
             reject(false);
