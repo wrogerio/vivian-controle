@@ -35,3 +35,7 @@ td {
     text-align: center;
     font-size: 1rem !important ;
 }
+
+.bg-desc {
+    background: #d9d9d9 !important;
+}

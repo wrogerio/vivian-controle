@@ -65,11 +65,12 @@ const Index = () => {
             <div
                 id="divDesc"
                 className="bg-primary text-white text-center py-1 d-none"
+                style={{ position: "fixed", width: "99vw", top: 2, left: 2 }}
                 onClick={() => {
                     $("#divDesc").addClass("d-none");
                 }}
             >
-                <span className="fs-2 fw-bold" id="tipoDesk"></span>
+                <span className="fs-1 fw-bold" id="tipoDesk"></span>
             </div>
             <input type="text" className="form-control mb-1" id="txtSearch" name="txtSearch" placeholder="Pesquisar valores" onChange={(e) => HandleSearchText(e.target.value)} />
             <table className="table table-sm table-bordered">
@@ -88,9 +89,13 @@ const Index = () => {
                         lancamentos.map((obj: lancamento) => (
                             <tr key={obj.Id} data-search={`${ConvertToMesNome(new Date(obj.DtLancamento).getMonth() + 1).toLowerCase()}${ConvertToPtBrUTC(new Date(obj.DtLancamento)).toLocaleDateString("pt-BR")}${obj.Tipo.toLowerCase()}${obj.Descricao.toLowerCase()}${obj.Categoria.toLowerCase()}`}>
                                 <td
-                                    onClick={() => {
+                                    onClick={(e) => {
                                         $("#tipoDesk").text(obj.Descricao);
                                         $("#divDesc").removeClass("d-none");
+                                        document.querySelectorAll("tbody tr.bg-desc").forEach((row: any) => {
+                                            row.classList.remove("bg-desc");
+                                        });
+                                        $(e.target).parent().addClass("bg-desc");
                                     }}
                                 >
                                     {ConvertToPtBrUTC(new Date(obj.DtLancamento)).toLocaleDateString("pt-BR")}
