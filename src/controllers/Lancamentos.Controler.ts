@@ -2,7 +2,7 @@ import pool from "@/database/dbSQL";
 import { lancamento } from "./../interfaces/index";
 
 export const GetAll = () => {
-    var querie = `  SELECT TOP 200 l.Id, l.DtLancamento, l.DtLancamentoString, l.Descricao, l.Valor, l.CategoriaId, l.Categoria 
+    var querie = `  SELECT TOP 200 l.Id, l.DtLancamento, l.DtLancamentoString, l.Descricao, l.Valor, l.CategoriaId, l.Categoria, l.TipoId, l.Tipo 
                     FROM vLancamentos l
                     ORDER BY l.DtLancamento DESC, l.Categoria`;
     return new Promise(async (resolve, reject) => {
@@ -17,7 +17,7 @@ export const GetAll = () => {
 };
 
 export const GetById = (id: string) => {
-    var querie = `  SELECT l.Id, l.DtLancamento, l.DtLancamentoString, l.Descricao, l.Valor, l.CategoriaId, l.Categoria 
+    var querie = `  SELECT l.Id, l.DtLancamento, l.DtLancamentoString, l.Descricao, l.Valor, l.CategoriaId, l.Categoria , l.TipoId, l.Tipo 
                     FROM vLancamentos l
                     WHERE l.Id = '${id}'`;
     return new Promise(async (resolve, reject) => {
@@ -32,7 +32,7 @@ export const GetById = (id: string) => {
 };
 
 export const Add = (lancamento: lancamento) => {
-    var querie = `INSERT INTO lancamentos (DtLancamento, Descricao, Valor, CategoriaId) VALUES ('${lancamento.DtLancamento}', '${lancamento.Descricao}', '${lancamento.Valor}', '${lancamento.CategoriaId}')`;
+    var querie = `INSERT INTO lancamentos (DtLancamento, Descricao, Valor, CategoriaId, TipoId) VALUES ('${lancamento.DtLancamento}', '${lancamento.Descricao}', '${lancamento.Valor}', '${lancamento.CategoriaId}', '${lancamento.TipoId}')`;
     return new Promise(async (resolve, reject) => {
         try {
             pool.connect();
@@ -45,7 +45,7 @@ export const Add = (lancamento: lancamento) => {
 };
 
 export const Update = (lancamento: lancamento) => {
-    var querie = `UPDATE lancamentos SET DtLancamento = '${lancamento.DtLancamento}', Descricao = '${lancamento.Descricao}', Valor = '${lancamento.Valor}', CategoriaId = '${lancamento.CategoriaId}' WHERE Id = '${lancamento.Id}'`;
+    var querie = `UPDATE lancamentos SET DtLancamento = '${lancamento.DtLancamento}', Descricao = '${lancamento.Descricao}', Valor = '${lancamento.Valor}', CategoriaId = '${lancamento.CategoriaId}', TipoId = '${lancamento.TipoId}' WHERE Id = '${lancamento.Id}'`;
     return new Promise(async (resolve, reject) => {
         try {
             pool.connect();

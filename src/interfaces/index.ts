@@ -10,7 +10,9 @@ export interface lancamento {
     Descricao: string;
     Valor: number;
     CategoriaId: string;
+    TipoId: string;
     Categoria: string;
+    Tipo: string;
 }
 
 export interface items {

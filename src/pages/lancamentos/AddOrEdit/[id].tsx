@@ -11,6 +11,7 @@ export const Alterar = () => {
 
     const [lancamentos, setLancamentos] = useState({} as lancamento);
     const [categorias, setCategorias] = useState({} as categoria);
+    const [tipos, setTipos] = useState({} as categoria);
     const dtHoje = ConvertToStringDate(new Date());
 
     const handleData = async () => {
@@ -27,6 +28,7 @@ export const Alterar = () => {
                     Descricao: lancamentos.Descricao,
                     Valor: lancamentos.Valor,
                     CategoriaId: lancamentos.CategoriaId,
+                    TipoId: lancamentos.TipoId,
                 }),
             });
             redirectToList(await res.json());
@@ -41,6 +43,7 @@ export const Alterar = () => {
                     Descricao: lancamentos.Descricao,
                     Valor: lancamentos.Valor,
                     CategoriaId: lancamentos.CategoriaId,
+                    TipoId: lancamentos.TipoId,
                 }),
             });
             redirectToList(await res.json());
@@ -62,8 +65,15 @@ export const Alterar = () => {
         setCategorias(data);
     };
 
+    const getTipos = async () => {
+        const res = await fetch("/api/tipos");
+        const data = await res.json();
+        setTipos(data);
+    };
+
     useEffect(() => {
         getCategorias();
+        getTipos();
         const id = window.location.href.split("/AddOrEdit/")[1];
         if (id != "0") {
             fetch(`/api/${urlRoot}/${id}`)
@@ -75,7 +85,7 @@ export const Alterar = () => {
                     console.log(err);
                 });
         } else {
-            setLancamentos({ ...lancamentos, DtLancamentoString: dtHoje } as lancamento);
+            setLancamentos({ ...lancamentos, DtLancamentoString: dtHoje, TipoId: "1BAEA2BD-5E43-41ED-926D-FFE0DB46EB6B", Tipo: "Gasto Diário" } as lancamento);
         }
     }, []);
 
@@ -87,13 +97,13 @@ export const Alterar = () => {
                     <div className="card">
                         <div className="card-body">
                             <div className="row mb-2">
-                                <div className="col-12 col-md-6 col-lg-3 mb-2">
+                                <div className="col-12 col-lg-4 mb-2">
                                     <div className="form-group">
                                         <label>Data</label>
                                         <input type="date" className="form-control" name="DtLancamento" id="DtLancamento" defaultValue={dtHoje} value={lancamentos.DtLancamentoString} onChange={(e) => setLancamentos({ ...lancamentos, DtLancamentoString: e.target.value, DtLancamento: new Date(e.target.value) })} />
                                     </div>
                                 </div>
-                                <div className="col-12 col-md-6 col-lg-3 mb-2">
+                                <div className="col-12 col-md-6 col-lg-4 mb-2">
                                     <div className="form-group">
                                         <label>Categoria</label>
                                         <select className="form-control" name="CategoriaId" id="CategoriaId" autoFocus value={lancamentos.CategoriaId} onChange={(e) => setLancamentos({ ...lancamentos, CategoriaId: e.target.value, Categoria: e.target.options[e.target.selectedIndex].text })}>
@@ -107,13 +117,27 @@ export const Alterar = () => {
                                         </select>
                                     </div>
                                 </div>
-                                <div className="col-12 col-md-8 col-lg-4 mb-2">
+                                <div className="col-12 col-md-6 col-lg-4 mb-2">
+                                    <div className="form-group">
+                                        <label>Tipos</label>
+                                        <select className="form-control" name="CategoriaId" id="CategoriaId" autoFocus value={lancamentos.TipoId} onChange={(e) => setLancamentos({ ...lancamentos, TipoId: e.target.value, Tipo: e.target.options[e.target.selectedIndex].text })}>
+                                            <option value="0">Selecione</option>
+                                            {Array.isArray(tipos) &&
+                                                tipos.map((item) => (
+                                                    <option key={item.Id} value={item.Id}>
+                                                        {item.Nome}
+                                                    </option>
+                                                ))}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="col-12 col-md-8 col-lg-9 mb-2">
                                     <div className="form-group">
                                         <label>Descrição</label>
                                         <input type="text" className="form-control" name="Descricao" id="Descricao" value={lancamentos.Descricao} onChange={handleChange} />
                                     </div>
                                 </div>
-                                <div className="col-12 col-md-4 col-lg-2  mb-2">
+                                <div className="col-12 col-md-4 col-lg-3 mb-2">
                                     <div className="form-group">
                                         <label>Valor</label>
                                         <input type="number" step={0.01} className="form-control" name="Valor" id="Valor" value={lancamentos.Valor} onChange={handleChange} />

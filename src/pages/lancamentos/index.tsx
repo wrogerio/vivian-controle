@@ -48,6 +48,7 @@ const Index = () => {
                     <tr>
                         <th style={{ width: 110 }}>Data</th>
                         <th className="d-none d-md-table-cell">Categoria</th>
+                        <th className="d-none d-md-table-cell">Tipo</th>
                         <th style={{ width: 110 }}>Valor</th>
                         <th className="d-none d-lg-table-cell">Descrição</th>
                         <th className="text-center">#</th>
@@ -59,6 +60,7 @@ const Index = () => {
                             <tr key={obj.Id}>
                                 <td>{ConvertToPtBrUTC(new Date(obj.DtLancamento)).toLocaleDateString("pt-BR")}</td>
                                 <td className="d-none d-md-table-cell">{obj.Categoria}</td>
+                                <td className="d-none d-md-table-cell">{obj.Tipo}</td>
                                 <td>{obj.Valor.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</td>
                                 <td className="d-none d-lg-table-cell">{obj.Descricao}</td>
                                 <td className="text-center">
