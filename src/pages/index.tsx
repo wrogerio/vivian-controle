@@ -112,7 +112,7 @@ export default function Home() {
         <>
             <div
                 id="divDesc"
-                className="bg-primary text-white text-center py-1 d-none"
+                className="bg-secondary text-white text-center py-1 d-none"
                 style={{ position: "fixed", width: "99vw", top: 2, left: 2, zIndex: 999 }}
                 onDoubleClick={() => {
                     console.log("fdsfasd");
