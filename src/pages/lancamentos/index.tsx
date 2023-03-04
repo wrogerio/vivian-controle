@@ -21,6 +21,25 @@ const Index = () => {
         return data;
     };
 
+    const HandleSearchText = (e: any) => {
+        let txt = e.split(" ");
+        let rows = document.querySelectorAll("tbody tr");
+        rows.forEach((row: any) => {
+            let search = row.getAttribute("data-search");
+            let show = true;
+            txt.forEach((t: string) => {
+                if (search?.indexOf(t.toLowerCase()) === -1) {
+                    show = false;
+                }
+            });
+            if (show) {
+                row.style.display = "table-row";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    };
+
     const RemoveData = (id: string) => {
         if (confirm("Deseja realmente remover ?")) {
             fetch(`/api/${urlRoot}/${id}`, {
@@ -43,6 +62,7 @@ const Index = () => {
     return (
         <>
             <HeaderPage title="Lançametos" pageType="index" accessKey="c" textBt="Cadastrar" linkToBack={`/${urlRoot}/AddOrEdit/0`} iconBt="fas fa-money-bill-wave me-2"></HeaderPage>
+            <input type="text" className="form-control mb-1" id="txtSearch" name="txtSearch" placeholder="Pesquisar valores" onChange={(e) => HandleSearchText(e.target.value)} />
             <table className="table table-sm table-bordered">
                 <thead>
                     <tr>
@@ -57,7 +77,7 @@ const Index = () => {
                 <tbody>
                     {Array.isArray(lancamentos) &&
                         lancamentos.map((obj: lancamento) => (
-                            <tr key={obj.Id}>
+                            <tr key={obj.Id} data-search={`${ConvertToPtBrUTC(new Date(obj.DtLancamento)).toLocaleDateString("pt-BR")}${obj.Tipo.toLowerCase()}${obj.Descricao.toLowerCase()}${obj.Categoria.toLowerCase()}`}>
                                 <td>{ConvertToPtBrUTC(new Date(obj.DtLancamento)).toLocaleDateString("pt-BR")}</td>
                                 <td className="d-none d-md-table-cell">{obj.Categoria}</td>
                                 <td className="d-none d-md-table-cell">{obj.Tipo}</td>
