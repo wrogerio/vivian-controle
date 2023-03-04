@@ -77,7 +77,15 @@ const Index = () => {
                 <tbody>
                     {Array.isArray(lancamentos) &&
                         lancamentos.map((obj: lancamento) => (
-                            <tr onDoubleClick={(e) => alert(obj.Descricao)} key={obj.Id} data-search={`${ConvertToPtBrUTC(new Date(obj.DtLancamento)).toLocaleDateString("pt-BR")}${obj.Tipo.toLowerCase()}${obj.Descricao.toLowerCase()}${obj.Categoria.toLowerCase()}`}>
+                            <tr
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalDesc"
+                                onClick={() => {
+                                    $("#ValorDesc").text(obj.Descricao);
+                                }}
+                                key={obj.Id}
+                                data-search={`${ConvertToPtBrUTC(new Date(obj.DtLancamento)).toLocaleDateString("pt-BR")}${obj.Tipo.toLowerCase()}${obj.Descricao.toLowerCase()}${obj.Categoria.toLowerCase()}`}
+                            >
                                 <td>{ConvertToPtBrUTC(new Date(obj.DtLancamento)).toLocaleDateString("pt-BR")}</td>
                                 <td className="d-none d-md-table-cell">{obj.Categoria}</td>
                                 <td className="d-none d-md-table-cell">{obj.Tipo}</td>
@@ -102,6 +110,25 @@ const Index = () => {
                         ))}
                 </tbody>
             </table>
+
+            <div className="modal" id="modalDesc">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">Descrição</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            <p id="ValorDesc"></p>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </>
     );
 };
