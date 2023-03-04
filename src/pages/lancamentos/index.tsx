@@ -120,9 +120,12 @@ const Index = () => {
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
-                                Close
-                            </button>
+                            <div className="w-100 text-center">
+                                <button type="button" className="btn btn-primary" data-bs-dismiss="modal">
+                                    <i className="fas fa-times me-2"></i>
+                                    Fechar
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
