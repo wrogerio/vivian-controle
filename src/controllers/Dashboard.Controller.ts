@@ -17,6 +17,23 @@ export const GetGastoDiario = async (ano: number, mes: number) => {
     });
 };
 
+export const GetGastoPorDia = async (ano: number, mes: number, dia: number) => {
+    var querie = `  SELECT Cast(DtLancamento As Date) As DtLancamento, Ano, Mes, Dia, Categoria, Descricao, Valor
+                    FROM vLancamentos
+                    WHERE Ano = ${ano} and Mes = ${mes} And Dia = ${dia}
+                    ORDER BY DtLancamento Desc`;
+    console.log(querie);
+    return new Promise(async (resolve, reject) => {
+        try {
+            await pool.connect();
+            const result = await pool.request().query(querie);
+            resolve(result.recordset);
+        } catch (err) {
+            reject(err);
+        }
+    });
+};
+
 export const GetTotal = async (ano: number, mes: number) => {
     var querie = `  SELECT t.Nome As Tipo, Sum(l.Valor) as Total
                     FROM Lancamentos l

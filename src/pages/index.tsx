@@ -1,6 +1,5 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
-import { gastoDiario, items } from "./../interfaces/index";
-import { categoria } from "@/interfaces";
+import { categoria, lancamento, gastoDiario, items } from "@/interfaces";
 import { ConvertNumberTwoDigits, ConvertToBrlCurrency } from "@/helpers/util";
 
 export default function Home() {
@@ -9,6 +8,7 @@ export default function Home() {
     const titleTotalMensalRef = useRef<HTMLInputElement>(null);
     const [ano, setAno] = useState(new Date().getFullYear());
     const [mes, setMes] = useState(new Date().getMonth() + 1);
+    const [compraNoDiaSelecionado, setCompraNoDiaSelecionado] = useState([] as lancamento[]);
     const [items, setItems] = useState([]);
     const [gastoDiario, setGastoDiario] = useState([]);
     let isImpar = false;
@@ -30,8 +30,8 @@ export default function Home() {
             });
     };
 
-    const getGastoDiario = () => {
-        var xBody = JSON.stringify({ ano: ano, mes: mes });
+    const getGastoDiarioSum = () => {
+        var xBody = JSON.stringify({ ano, mes });
         fetch(`/api/dashboard/gastoDiario`, {
             method: "POST",
             headers: {
@@ -44,6 +44,22 @@ export default function Home() {
             })
             .then((res) => {
                 setGastoDiario(res);
+            });
+    };
+
+    const getGastoNoDiaSelecioando = async (ano: number, mes: number, dia: number) => {
+        fetch(`/api/dashboard/gastoPorDia`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ ano: ano, mes: mes, dia: dia }),
+        })
+            .then((obj) => {
+                return obj.json();
+            })
+            .then((res) => {
+                setCompraNoDiaSelecionado(res);
             });
     };
 
@@ -69,16 +85,27 @@ export default function Home() {
             });
     };
 
-    const getComprasHoje = (item: gastoDiario) => {
-        console.log(item);
-        $("#tipoDesk").text("Teste");
+    const setAmostraDoDiaSelecionado = async (item: gastoDiario) => {
+        await getGastoNoDiaSelecioando(item.Ano, item.Mes, item.Dia);
+        let textoHtml = "<ul class='list-group'>";
+        compraNoDiaSelecionado.forEach((item: lancamento) => {
+            textoHtml += `
+                <li class='list-group-item'>
+                    <span class='fs-5 d-block'>${item.Categoria}<span>
+                    <span class='fs-5 d-block'>${item.Descricao}<span>
+                    <span class='fs-5 d-block'>${ConvertToBrlCurrency(item.Valor)}<span>
+                </li>
+                `;
+        });
+
+        $("#tipoDesk").html(textoHtml);
         $("#divDesc").removeClass("d-none");
     };
 
     useEffect(() => {
         getTotal();
         getItems();
-        getGastoDiario();
+        getGastoDiarioSum();
     }, [ano, mes]);
 
     return (
@@ -87,11 +114,11 @@ export default function Home() {
                 id="divDesc"
                 className="bg-primary text-white text-center py-1 d-none"
                 style={{ position: "fixed", width: "99vw", top: 2, left: 2 }}
-                onClick={() => {
+                onDoubleClick={() => {
                     $("#divDesc").addClass("d-none");
                 }}
             >
-                <span className="fs-1 fw-bold" id="tipoDesk"></span>
+                <span id="tipoDesk"></span>
             </div>
 
             <div className="row">
@@ -100,7 +127,7 @@ export default function Home() {
                     <h1 className="text-success fw-bold" ref={titleTotalMensalRef} id="totalMensalTitle"></h1>
                 </div>
             </div>
-
+            <pre>{JSON.stringify(compraNoDiaSelecionado)}</pre>
             <div className="row mb-3">
                 <div className="col-5">
                     <div className="form-group">
@@ -148,7 +175,7 @@ export default function Home() {
                                         <tr key={index}>
                                             <td
                                                 onClick={(e) => {
-                                                    getComprasHoje(item);
+                                                    setAmostraDoDiaSelecionado(item);
                                                     $("#divDesc").removeClass("d-none");
                                                     document.querySelectorAll("tbody tr.bg-desc").forEach((row: any) => {
                                                         row.classList.remove("bg-desc");
