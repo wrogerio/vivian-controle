@@ -69,7 +69,7 @@ const Index = () => {
                         <th style={{ width: 110 }}>Data</th>
                         <th className="d-none d-md-table-cell">Categoria</th>
                         <th className="d-none d-md-table-cell">Tipo</th>
-                        <th style={{ width: 110 }}>Valor</th>
+                        <th style={{ width: 120 }}>Valor</th>
                         <th className="d-none d-lg-table-cell">Descrição</th>
                         <th className="text-center">#</th>
                     </tr>
