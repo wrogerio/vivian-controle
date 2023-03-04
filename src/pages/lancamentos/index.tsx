@@ -83,7 +83,7 @@ const Index = () => {
                                 <td className="d-none d-md-table-cell">{obj.Tipo}</td>
                                 <td>
                                     <div className="d-flex justify-content-around px-3">
-                                        <div>{obj.Tipo[0] == "G" ? <span className="badge text-bg-danger">Dia</span> : <span className="badge text-bg-primary">Mês</span>}</div>
+                                        <div>{obj.Tipo[0] == "G" ? <span className="badge text-bg-danger">Dia</span> : <span className="badge text-bg-success">Mês</span>}</div>
                                         <div>
                                             <span>{obj.Valor.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</span>
                                         </div>
