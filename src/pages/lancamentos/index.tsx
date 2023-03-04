@@ -79,10 +79,8 @@ const Index = () => {
                         lancamentos.map((obj: lancamento) => (
                             <tr key={obj.Id} data-search={`${ConvertToPtBrUTC(new Date(obj.DtLancamento)).toLocaleDateString("pt-BR")}${obj.Tipo.toLowerCase()}${obj.Descricao.toLowerCase()}${obj.Categoria.toLowerCase()}`}>
                                 <td
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#modalDesc"
                                     onClick={() => {
-                                        $("#ValorDesc").text(obj.Descricao);
+                                        alert(`${obj.Descricao}`);
                                     }}
                                 >
                                     {ConvertToPtBrUTC(new Date(obj.DtLancamento)).toLocaleDateString("pt-BR")}
@@ -110,26 +108,6 @@ const Index = () => {
                         ))}
                 </tbody>
             </table>
-
-            <div className="modal" id="modalDesc">
-                <div className="modal-dialog modal-dialog-centered">
-                    <div className="modal-content">
-                        <div className="modal-body py-4">
-                            <div className="text-center">
-                                <p className="fs-1 fw-bold m-0" id="ValorDesc"></p>
-                            </div>
-                        </div>
-                        <div className="modal-footer">
-                            <div className="w-100 text-center">
-                                <button type="button" className="btn btn-primary" data-bs-dismiss="modal">
-                                    <i className="fas fa-times me-2"></i>
-                                    Fechar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </>
     );
 };
