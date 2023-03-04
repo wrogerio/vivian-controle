@@ -8,7 +8,6 @@ export default function Home() {
     const titleTotalMensalRef = useRef<HTMLInputElement>(null);
     const [ano, setAno] = useState(new Date().getFullYear());
     const [mes, setMes] = useState(new Date().getMonth() + 1);
-    const [compraNoDiaSelecionado, setCompraNoDiaSelecionado] = useState([] as lancamento[]);
     const [items, setItems] = useState([]);
     const [gastoDiario, setGastoDiario] = useState([]);
     let isImpar = false;
@@ -47,22 +46,6 @@ export default function Home() {
             });
     };
 
-    const getGastoNoDiaSelecioando = async (ano: number, mes: number, dia: number) => {
-        fetch(`/api/dashboard/gastoPorDia`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ ano: ano, mes: mes, dia: dia }),
-        })
-            .then((obj) => {
-                return obj.json();
-            })
-            .then((res) => {
-                setCompraNoDiaSelecionado(res);
-            });
-    };
-
     const getTotal = () => {
         var xBody = JSON.stringify({ ano: ano, mes: mes });
         fetch(`/api/dashboard/total`, {
@@ -85,43 +68,13 @@ export default function Home() {
             });
     };
 
-    const setAmostraDoDiaSelecionado = async (item: gastoDiario) => {
-        await getGastoNoDiaSelecioando(item.Ano, item.Mes, item.Dia);
-        let textoHtml = "";
-        compraNoDiaSelecionado.forEach((item: lancamento) => {
-            textoHtml += `
-                    <div class='mb-2'>
-                    <span class='fs-7 d-block'>${item.Categoria}<span>
-                    <span class='fs-7 d-block'>${item.Descricao}<span>
-                    <span class='fs-7 d-block'>${ConvertToBrlCurrency(item.Valor)}<span>
-                    </div>
-                `;
-        });
-
-        $("#tipoDesk").html(textoHtml);
-        $("#divDesc").removeClass("d-none");
-    };
-
     useEffect(() => {
         getTotal();
         getItems();
-        getGastoDiarioSum();
     }, [ano, mes]);
 
     return (
         <>
-            <div
-                id="divDesc"
-                className="bg-secondary text-white text-center py-1 d-none border-bottom"
-                style={{ position: "fixed", width: "99vw", top: 2, left: 2, zIndex: 999 }}
-                onDoubleClick={() => {
-                    console.log("fdsfasd");
-                    $("#divDesc").addClass("d-none");
-                }}
-            >
-                <span id="tipoDesk"></span>
-            </div>
-
             <div className="row">
                 <div className="col text-center pt-2">
                     <h1 className="text-danger fw-bold" ref={titleTotalDiarioRef} id="totalDiarioTitle"></h1>
@@ -173,18 +126,7 @@ export default function Home() {
                                 gastoDiario.map((item: gastoDiario, index: number) => {
                                     return (
                                         <tr key={index}>
-                                            <td
-                                                onClick={(e) => {
-                                                    setAmostraDoDiaSelecionado(item);
-                                                    $("#divDesc").removeClass("d-none");
-                                                    document.querySelectorAll("tbody tr.bg-desc").forEach((row: any) => {
-                                                        row.classList.remove("bg-desc");
-                                                    });
-                                                    $(e.target).parent().addClass("bg-desc");
-                                                }}
-                                            >
-                                                {item.Dia}
-                                            </td>
+                                            <td>{item.Dia}</td>
                                             <td>{item.DiaNome}</td>
                                             <td style={{ width: 150 }}>
                                                 <span style={{ fontSize: "1.1rem" }} className="fw-bold">
