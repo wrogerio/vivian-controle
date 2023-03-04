@@ -1,8 +1,7 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { gastoDiario, items } from "./../interfaces/index";
 import { categoria } from "@/interfaces";
-import { ConvertNumberTwoDigits } from "@/helpers/util";
-import { ConvertToMesNome } from "./../helpers/util";
+import { ConvertNumberTwoDigits, ConvertToBrlCurrency } from "@/helpers/util";
 
 export default function Home() {
     // usereff
@@ -70,11 +69,10 @@ export default function Home() {
             });
     };
 
-    const ConvertToBrlCurrency = (numero: number) => {
-        return numero.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-        });
+    const getComprasHoje = (item: gastoDiario) => {
+        console.log(item);
+        $("#tipoDesk").text("Teste");
+        $("#divDesc").removeClass("d-none");
     };
 
     useEffect(() => {
@@ -85,6 +83,17 @@ export default function Home() {
 
     return (
         <>
+            <div
+                id="divDesc"
+                className="bg-primary text-white text-center py-1 d-none"
+                style={{ position: "fixed", width: "99vw", top: 2, left: 2 }}
+                onClick={() => {
+                    $("#divDesc").addClass("d-none");
+                }}
+            >
+                <span className="fs-1 fw-bold" id="tipoDesk"></span>
+            </div>
+
             <div className="row">
                 <div className="col text-center pt-2">
                     <h1 className="text-danger fw-bold" ref={titleTotalDiarioRef} id="totalDiarioTitle"></h1>
@@ -137,7 +146,18 @@ export default function Home() {
                                 gastoDiario.map((item: gastoDiario, index: number) => {
                                     return (
                                         <tr key={index}>
-                                            <td>{item.Dia}</td>
+                                            <td
+                                                onClick={(e) => {
+                                                    getComprasHoje(item);
+                                                    $("#divDesc").removeClass("d-none");
+                                                    document.querySelectorAll("tbody tr.bg-desc").forEach((row: any) => {
+                                                        row.classList.remove("bg-desc");
+                                                    });
+                                                    $(e.target).parent().addClass("bg-desc");
+                                                }}
+                                            >
+                                                {item.Dia}
+                                            </td>
                                             <td>{item.DiaNome}</td>
                                             <td style={{ width: 150 }}>
                                                 <span style={{ fontSize: "1.1rem" }} className="fw-bold">
