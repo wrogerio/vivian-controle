@@ -64,9 +64,9 @@ const Index = () => {
             <HeaderPage title="Lançametos" pageType="index" accessKey="c" textBt="Cadastrar" linkToBack={`/${urlRoot}/AddOrEdit/0`} iconBt="fas fa-money-bill-wave me-2"></HeaderPage>
             <div
                 id="divDesc"
-                className="bg-primary text-white text-center py-1"
+                className="bg-primary text-white text-center py-1 d-none"
                 onClick={() => {
-                    $("#divDesc").hide();
+                    $("#divDesc").addClass("d-none");
                 }}
             >
                 <span className="fs-2 fw-bold" id="tipoDesk"></span>
@@ -90,7 +90,7 @@ const Index = () => {
                                 <td
                                     onClick={() => {
                                         $("#tipoDesk").text(obj.Descricao);
-                                        $("#divDesc").show();
+                                        $("#divDesc").removeClass("d-none");
                                     }}
                                 >
                                     {ConvertToPtBrUTC(new Date(obj.DtLancamento)).toLocaleDateString("pt-BR")}
