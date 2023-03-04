@@ -81,7 +81,14 @@ const Index = () => {
                                 <td>{ConvertToPtBrUTC(new Date(obj.DtLancamento)).toLocaleDateString("pt-BR")}</td>
                                 <td className="d-none d-md-table-cell">{obj.Categoria}</td>
                                 <td className="d-none d-md-table-cell">{obj.Tipo}</td>
-                                <td>{obj.Valor.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</td>
+                                <td>
+                                    <div className="d-flex justify-content-around px-3">
+                                        <div>{obj.Tipo[0] == "G" ? <span className="badge text-bg-danger">Dia</span> : <span className="badge text-bg-primary">Mês</span>}</div>
+                                        <div>
+                                            <span>{obj.Valor.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</span>
+                                        </div>
+                                    </div>
+                                </td>
                                 <td className="d-none d-lg-table-cell">{obj.Descricao}</td>
                                 <td className="text-center">
                                     <a href={`/${urlRoot}/AddOrEdit/${obj.Id}`} className="me-2">
