@@ -1,6 +1,7 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { categoria, lancamento, gastoDiario, items } from "@/interfaces";
 import { ConvertNumberTwoDigits, ConvertToBrlCurrency } from "@/helpers/util";
+import Link from "next/link";
 
 export default function Home() {
     // usereff
@@ -79,8 +80,8 @@ export default function Home() {
                 if (titleTotalDiarioRef.current && titleTotalMensalRef.current) {
                     const totalDiario = res.filter((x: any) => x.Tipo == "Diario")[0].Total;
                     const totalMensal = res.filter((x: any) => x.Tipo == "Mensal")[0].Total;
-                    titleTotalDiarioRef.current.innerHTML = `Diário: ${ConvertToBrlCurrency(totalDiario || 0)}`;
-                    titleTotalMensalRef.current.innerHTML = `Mensal: ${ConvertToBrlCurrency(totalMensal || 0)}`;
+                    titleTotalDiarioRef.current.innerHTML = `${ConvertToBrlCurrency(totalDiario || 0)}`;
+                    titleTotalMensalRef.current.innerHTML = `${ConvertToBrlCurrency(totalMensal || 0)}`;
                 }
             });
     };
@@ -95,8 +96,20 @@ export default function Home() {
         <>
             <div className="row">
                 <div className="col text-center pt-2">
-                    <h1 className="text-danger fw-bold" ref={titleTotalDiarioRef} id="totalDiarioTitle"></h1>
-                    <h1 className="text-success fw-bold" ref={titleTotalMensalRef} id="totalMensalTitle"></h1>
+                    <div className="d-flex justify-content-between bg-danger text-white px-2 py-2 mb-1">
+                        <h2 className="fw-bold m-0">Diário</h2>
+                        <h2 className="fw-bold m-0" ref={titleTotalDiarioRef} id="totalDiarioTitle"></h2>
+                        <Link href="/lancamentos/AddOrEdit/0" className="m-0">
+                            <i className="fas fa-plus-circle fa-2x text-white m-0" style={{ cursor: "pointer" }}></i>
+                        </Link>
+                    </div>
+                    <div className="d-flex justify-content-between bg-success text-white px-2 py-2 mb-1">
+                        <h2 className="fw-bold m-0">Mensal</h2>
+                        <h2 className="fw-bold m-0" ref={titleTotalMensalRef} id="totalMensalTitle"></h2>
+                        <Link href="/lancamentos/AddOrEdit/0" className="m-0">
+                            <i className="fas fa-plus-circle fa-2x text-white m-0" style={{ cursor: "pointer" }}></i>
+                        </Link>
+                    </div>
                 </div>
             </div>
             <div className="row mb-3">
