@@ -46,6 +46,23 @@ export default function Home() {
             });
     };
 
+    const getGastoDiario = () => {
+        var xBody = JSON.stringify({ ano: ano, mes: mes });
+        fetch(`/api/dashboard/gastoDiario`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: xBody,
+        })
+            .then((obj) => {
+                return obj.json();
+            })
+            .then((res) => {
+                setGastoDiario(res);
+            });
+    };
+
     const getTotal = () => {
         var xBody = JSON.stringify({ ano: ano, mes: mes });
         fetch(`/api/dashboard/total`, {
@@ -71,6 +88,7 @@ export default function Home() {
     useEffect(() => {
         getTotal();
         getItems();
+        getGastoDiario();
     }, [ano, mes]);
 
     return (
