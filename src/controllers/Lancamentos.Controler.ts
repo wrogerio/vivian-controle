@@ -2,10 +2,10 @@ import pool from "@/database/dbSQL";
 import { lancamento } from "./../interfaces/index";
 
 export const GetAll = () => {
-    var querie = `  SELECT TOP 200 l.Id, l.DtLancamento, l.DtLancamentoString, l.Descricao, l.Valor, l.CategoriaId, l.Categoria, l.TipoId, l.Tipo 
+    var querie = `  SELECT TOP 200 l.Id, l.DtLancamento, l.DtLancamentoString, l.Descricao, l.Valor, l.CategoriaId, l.Categoria, l.TipoId, l.Tipo, l.StatusId, l.Status
                     FROM vLancamentos l
                     WHERE l.DtLancamento >= dbo.f_LimitMonth()
-                    ORDER BY l.DtLancamento DESC, l.Categoria`;
+                    ORDER BY l.Status, l.DtLancamento DESC, l.Categoria`;
     return new Promise(async (resolve, reject) => {
         try {
             await pool.connect();
@@ -18,7 +18,7 @@ export const GetAll = () => {
 };
 
 export const GetById = (id: string) => {
-    var querie = `  SELECT l.Id, l.DtLancamento, l.DtLancamentoString, l.Descricao, l.Valor, l.CategoriaId, l.Categoria , l.TipoId, l.Tipo 
+    var querie = `  SELECT l.Id, l.DtLancamento, l.DtLancamentoString, l.Descricao, l.Valor, l.CategoriaId, l.Categoria , l.TipoId, l.Tipo, l.StatusId, l.Status
                     FROM vLancamentos l
                     WHERE l.Id = '${id}'`;
     return new Promise(async (resolve, reject) => {

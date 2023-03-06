@@ -11,6 +11,8 @@ export interface lancamento {
     Valor: number;
     CategoriaId: string;
     TipoId: string;
+    StatusId: string;
+    Status: string;
     Categoria: string;
     Tipo: string;
 }

@@ -87,7 +87,7 @@ const Index = () => {
                 <tbody>
                     {Array.isArray(lancamentos) &&
                         lancamentos.map((obj: lancamento) => (
-                            <tr key={obj.Id} data-search={`${ConvertToMesNome(new Date(obj.DtLancamento).getMonth() + 1).toLowerCase()}${ConvertToPtBrUTC(new Date(obj.DtLancamento)).toLocaleDateString("pt-BR")}${obj.Tipo.toLowerCase()}${obj.Descricao.toLowerCase()}${obj.Categoria.toLowerCase()}`}>
+                            <tr className={obj.Status == "Pago" ? "isPago" : "isPagar"} key={obj.Id} data-search={`${ConvertToMesNome(new Date(obj.DtLancamento).getMonth() + 1).toLowerCase()}${ConvertToPtBrUTC(new Date(obj.DtLancamento)).toLocaleDateString("pt-BR")}${obj.Tipo.toLowerCase()}${obj.Descricao.toLowerCase()}${obj.Categoria.toLowerCase()}`}>
                                 <td
                                     onClick={(e) => {
                                         $("#tipoDesk").text(obj.Descricao);

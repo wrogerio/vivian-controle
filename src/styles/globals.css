@@ -21,10 +21,12 @@ tr:hover {
 }
 
 th {
-    background: #f3f3f3 !important;
+    background: rgb(12, 106, 182) !important;
     border-bottom: 2px solid #e2e2e2 !important;
     padding: 0.5rem 0.2rem !important;
     text-align: center !important;
+    color: white;
+    border: solid 1px #aaa !important;
 }
 th:last-child {
     width: 80px;
@@ -34,8 +36,17 @@ td {
     padding: 0.4rem 0 !important;
     text-align: center;
     font-size: 1rem !important ;
+    border: solid 1px #aaa !important;
 }
 
 .bg-desc {
     background: #d9d9d9 !important;
+}
+
+.isPago {
+    background: #d3dbfe;
+}
+
+.isPagar {
+    background: #f6d5d5;
 }
