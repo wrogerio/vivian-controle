@@ -92,10 +92,6 @@ const Index = () => {
                                     onClick={(e) => {
                                         $("#tipoDesk").text(obj.Descricao);
                                         $("#divDesc").removeClass("d-none");
-                                        document.querySelectorAll("tbody tr.bg-desc").forEach((row: any) => {
-                                            row.classList.remove("bg-desc");
-                                        });
-                                        $(e.target).parent().addClass("bg-desc");
                                     }}
                                 >
                                     {ConvertToPtBrUTC(new Date(obj.DtLancamento)).toLocaleDateString("pt-BR")}
