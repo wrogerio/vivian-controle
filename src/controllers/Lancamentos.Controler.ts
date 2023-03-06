@@ -33,7 +33,7 @@ export const GetById = (id: string) => {
 };
 
 export const Add = (lancamento: lancamento) => {
-    var querie = `INSERT INTO lancamentos (DtLancamento, Descricao, Valor, CategoriaId, TipoId) VALUES ('${lancamento.DtLancamento}', '${lancamento.Descricao}', '${lancamento.Valor}', '${lancamento.CategoriaId}', '${lancamento.TipoId}')`;
+    var querie = `INSERT INTO lancamentos (DtLancamento, Descricao, Valor, CategoriaId, TipoId, StatusId) VALUES ('${lancamento.DtLancamento}', '${lancamento.Descricao}', '${lancamento.Valor}', '${lancamento.CategoriaId}', '${lancamento.TipoId}', '${lancamento.StatusId}')`;
     return new Promise(async (resolve, reject) => {
         try {
             pool.connect();
@@ -46,7 +46,7 @@ export const Add = (lancamento: lancamento) => {
 };
 
 export const Update = (lancamento: lancamento) => {
-    var querie = `UPDATE lancamentos SET DtLancamento = '${lancamento.DtLancamento}', Descricao = '${lancamento.Descricao}', Valor = '${lancamento.Valor}', CategoriaId = '${lancamento.CategoriaId}', TipoId = '${lancamento.TipoId}' WHERE Id = '${lancamento.Id}'`;
+    var querie = `UPDATE lancamentos SET DtLancamento = '${lancamento.DtLancamento}', Descricao = '${lancamento.Descricao}', Valor = '${lancamento.Valor}', StatusId = '${lancamento.StatusId}',  CategoriaId = '${lancamento.CategoriaId}', TipoId = '${lancamento.TipoId}' WHERE Id = '${lancamento.Id}'`;
     return new Promise(async (resolve, reject) => {
         try {
             pool.connect();

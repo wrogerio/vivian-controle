@@ -12,6 +12,7 @@ export const Alterar = () => {
     const [lancamentos, setLancamentos] = useState({} as lancamento);
     const [categorias, setCategorias] = useState({} as categoria);
     const [tipos, setTipos] = useState({} as categoria);
+    const [statusList, setStatusList] = useState({} as categoria);
     const dtHoje = ConvertToStringDate(new Date());
 
     const handleData = async () => {
@@ -29,6 +30,7 @@ export const Alterar = () => {
                     Valor: lancamentos.Valor,
                     CategoriaId: lancamentos.CategoriaId,
                     TipoId: lancamentos.TipoId,
+                    StatusId: lancamentos.StatusId,
                 }),
             });
             redirectToList(await res.json());
@@ -44,6 +46,7 @@ export const Alterar = () => {
                     Valor: lancamentos.Valor,
                     CategoriaId: lancamentos.CategoriaId,
                     TipoId: lancamentos.TipoId,
+                    StatusId: lancamentos.StatusId,
                 }),
             });
             redirectToList(await res.json());
@@ -71,9 +74,16 @@ export const Alterar = () => {
         setTipos(data);
     };
 
+    const getStatus = async () => {
+        const res = await fetch("/api/status");
+        const data = await res.json();
+        setStatusList(data);
+    };
+
     useEffect(() => {
         getCategorias();
         getTipos();
+        getStatus();
         const id = window.location.href.split("/AddOrEdit/")[1];
         if (id != "0") {
             fetch(`/api/${urlRoot}/${id}`)
@@ -97,13 +107,13 @@ export const Alterar = () => {
                     <div className="card">
                         <div className="card-body">
                             <div className="row mb-2">
-                                <div className="col-12 col-lg-4 mb-2">
+                                <div className="col-12 col-lg-6 mb-2">
                                     <div className="form-group">
                                         <label>Data</label>
                                         <input type="date" className="form-control" name="DtLancamento" id="DtLancamento" defaultValue={dtHoje} value={lancamentos.DtLancamentoString} onChange={(e) => setLancamentos({ ...lancamentos, DtLancamentoString: e.target.value, DtLancamento: new Date(e.target.value) })} />
                                     </div>
                                 </div>
-                                <div className="col-12 col-md-6 col-lg-4 mb-2">
+                                <div className="col-12 col-md-6 col-lg-6 mb-2">
                                     <div className="form-group">
                                         <label>Categoria</label>
                                         <select className="form-control" name="CategoriaId" id="CategoriaId" autoFocus value={lancamentos.CategoriaId} onChange={(e) => setLancamentos({ ...lancamentos, CategoriaId: e.target.value, Categoria: e.target.options[e.target.selectedIndex].text })}>
@@ -117,13 +127,27 @@ export const Alterar = () => {
                                         </select>
                                     </div>
                                 </div>
-                                <div className="col-12 col-md-6 col-lg-4 mb-2">
+                                <div className="col-12 col-md-3 col-lg-6 mb-2">
                                     <div className="form-group">
                                         <label>Tipos</label>
                                         <select className="form-control" name="CategoriaId" id="CategoriaId" autoFocus value={lancamentos.TipoId} onChange={(e) => setLancamentos({ ...lancamentos, TipoId: e.target.value, Tipo: e.target.options[e.target.selectedIndex].text })}>
                                             <option value="0">Selecione</option>
                                             {Array.isArray(tipos) &&
                                                 tipos.map((item) => (
+                                                    <option key={item.Id} value={item.Id}>
+                                                        {item.Nome}
+                                                    </option>
+                                                ))}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="col-12 col-md-3 col-lg-6 mb-2">
+                                    <div className="form-group">
+                                        <label>Status</label>
+                                        <select className="form-control" name="CategoriaId" id="CategoriaId" autoFocus defaultValue="F927E827-6D2D-47D5-AE57-34E85FD8FCB1" value={lancamentos.StatusId} onChange={(e) => setLancamentos({ ...lancamentos, StatusId: e.target.value, Status: e.target.options[e.target.selectedIndex].text })}>
+                                            <option value="0">Selecione</option>
+                                            {Array.isArray(statusList) &&
+                                                statusList.map((item) => (
                                                     <option key={item.Id} value={item.Id}>
                                                         {item.Nome}
                                                     </option>
