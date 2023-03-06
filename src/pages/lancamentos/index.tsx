@@ -79,7 +79,7 @@ const Index = () => {
                         <th style={{ width: 110 }}>Data</th>
                         <th className="d-none d-md-table-cell">Categoria</th>
                         <th className="d-none d-md-table-cell">Tipo</th>
-                        <th style={{ width: 120 }}>Valor</th>
+                        <th style={{ width: 140 }}>Valor</th>
                         <th className="d-none d-lg-table-cell">Descrição</th>
                         <th className="text-center">#</th>
                     </tr>
@@ -104,7 +104,7 @@ const Index = () => {
                                 <td className="d-none d-md-table-cell">{obj.Tipo}</td>
                                 <td>
                                     <div className="d-flex justify-content-around px-3">
-                                        <div>{obj.Tipo[0] == "D" ? <span className="badge text-bg-success">Dia</span> : <span className="badge text-bg-danger">Mês</span>}</div>
+                                        <div>{obj.Tipo[0] == "D" ? <span className="badge text-bg-success">D</span> : <span className="badge text-bg-danger">M</span>}</div>
                                         <div>
                                             <span>{obj.Valor.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</span>
                                         </div>
