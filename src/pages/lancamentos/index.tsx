@@ -59,6 +59,10 @@ const Index = () => {
         }
     };
 
+    const togglePagto = (id: string) => {
+        console.log(id);
+    };
+
     return (
         <>
             <HeaderPage title="Lançametos" pageType="index" accessKey="c" textBt="Cadastrar" linkToBack={`/${urlRoot}/AddOrEdit/0`} iconBt="fas fa-money-bill-wave me-2"></HeaderPage>
@@ -98,7 +102,7 @@ const Index = () => {
                                 </td>
                                 <td className="d-none d-md-table-cell">{obj.Categoria}</td>
                                 <td className="d-none d-md-table-cell">{obj.Tipo}</td>
-                                <td>
+                                <td onDoubleClick={() => togglePagto(obj.Id)}>
                                     <div className="d-flex justify-content-around px-3">
                                         <div>{obj.Tipo[0] == "D" ? <span className="badge text-bg-success">D</span> : <span className="badge text-bg-danger">M</span>}</div>
                                         <div>
