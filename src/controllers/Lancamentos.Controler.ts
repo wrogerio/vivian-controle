@@ -1,5 +1,5 @@
 import pool from "@/database/dbSQL";
-import { lancamento } from "./../interfaces/index";
+import { lancamento, toggleStatusDto } from "./../interfaces/index";
 
 export const GetAll = () => {
     var querie = `  SELECT TOP 200 l.Id, l.DtLancamento, l.DtLancamentoString, l.Descricao, l.Valor, l.CategoriaId, l.Categoria, l.TipoId, l.Tipo, l.StatusId, l.Status
@@ -47,6 +47,22 @@ export const Add = (lancamento: lancamento) => {
 
 export const Update = (lancamento: lancamento) => {
     var querie = `UPDATE lancamentos SET DtLancamento = '${lancamento.DtLancamento}', Descricao = '${lancamento.Descricao}', Valor = '${lancamento.Valor}', StatusId = '${lancamento.StatusId}',  CategoriaId = '${lancamento.CategoriaId}', TipoId = '${lancamento.TipoId}' WHERE Id = '${lancamento.Id}'`;
+    return new Promise(async (resolve, reject) => {
+        try {
+            pool.connect();
+            await pool.request().query(querie);
+            resolve(true);
+        } catch (err) {
+            reject(false);
+        }
+    });
+};
+
+export const ToogleStatus = (toggle: toggleStatusDto) => {
+    const newStatus = toggle.StatusId.toLowerCase() == "26420821-c9b7-4d89-83aa-3edaf09cf8cf" ? "f927e827-6d2d-47d5-ae57-34e85fd8fcb1" : "26420821-c9b7-4d89-83aa-3edaf09cf8cf";
+    var querie = `UPDATE lancamentos SET StatusId = '${newStatus}' WHERE Id = '${toggle.Id.toLowerCase()}'`;
+
+    console.log(querie);
     return new Promise(async (resolve, reject) => {
         try {
             pool.connect();

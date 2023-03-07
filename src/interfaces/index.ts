@@ -29,3 +29,8 @@ export interface gastoDiario {
     DiaNome: string;
     Total: number;
 }
+
+export interface toggleStatusDto {
+    Id: string;
+    StatusId: string;
+}

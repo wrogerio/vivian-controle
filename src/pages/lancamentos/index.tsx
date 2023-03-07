@@ -59,8 +59,23 @@ const Index = () => {
         }
     };
 
-    const togglePagto = (id: string) => {
-        console.log(id);
+    const togglePagto = async (id: string, statusId: string) => {
+        const res = await fetch("/api/lancamentos/toggleStatus/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                Id: id,
+                StatusId: statusId,
+            }),
+        });
+
+        if (res) {
+            LoadData().then((data) => {
+                setLancamentos(data);
+            });
+        }
     };
 
     return (
@@ -102,7 +117,7 @@ const Index = () => {
                                 </td>
                                 <td className="d-none d-md-table-cell">{obj.Categoria}</td>
                                 <td className="d-none d-md-table-cell">{obj.Tipo}</td>
-                                <td onDoubleClick={() => togglePagto(obj.Id)}>
+                                <td onDoubleClick={() => togglePagto(obj.Id, obj.StatusId.toLowerCase())}>
                                     <div className="d-flex justify-content-around px-3">
                                         <div>{obj.Tipo[0] == "D" ? <span className="badge text-bg-success">D</span> : <span className="badge text-bg-danger">M</span>}</div>
                                         <div>
