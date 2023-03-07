@@ -16,10 +16,6 @@ tr {
     cursor: pointer;
 }
 
-tr:hover {
-    background: #f3f3f3;
-}
-
 th {
     background: rgb(12, 106, 182) !important;
     border-bottom: 2px solid #e2e2e2 !important;
