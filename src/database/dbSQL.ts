@@ -1,6 +1,6 @@
 const sql = require("mssql");
 const config = {
-    user: "controlecasausr",
+    user: "w_controlecasa_usr",
     password: "Brasil82+82",
     server: "mssql-112705-0.cloudclusters.net",
     port: 19809,
